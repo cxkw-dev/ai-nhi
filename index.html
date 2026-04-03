@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout v15 — Travel Collage</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f5f2ed; color: #1a1a1a; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+  img { display: block; }
+  .warm { filter: sepia(15%) saturate(80%) brightness(95%) contrast(95%); }
+  .warm-dark { filter: sepia(15%) saturate(75%) brightness(90%) contrast(105%); }
+
+  /* === NAV === */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; mix-blend-mode: difference; }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 24px; color: #f5f2ed; }
+  .nav-links { display: flex; gap: 28px; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; font-weight: 700; color: #f5f2ed; }
+
+  /* === HERO === */
+  .hero { position: relative; height: 100vh; min-height: 700px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26,26,26,0.1) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0.35) 100%); }
+  .hero-text { position: relative; z-index: 2; padding: 0 48px 12px; }
+  .hero-title { font-size: 28px; font-weight: 800; text-transform: uppercase; line-height: 1.1; letter-spacing: 1px; color: #f5f2ed; }
+  .hero-sub { font-size: 28px; font-weight: 800; text-transform: uppercase; line-height: 1.1; letter-spacing: 1px; color: rgba(245,242,237,0.35); }
+  .hero-scroll { position: relative; z-index: 2; padding: 20px 0 28px; display: flex; align-items: baseline; border-top: 1px solid rgba(245,242,237,0.15); margin: 0 48px; }
+  .hero-scroll span { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 14px; color: #f5f2ed; opacity: 0.4; margin-right: 32px; }
+  .hero-scroll .active { opacity: 1; }
+  .hero-scroll .s-right { margin-left: auto; margin-right: 0; }
+
+  .ghost { font-size: 180px; font-weight: 800; text-transform: lowercase; line-height: 0.8; letter-spacing: -8px; color: rgba(26,26,26,0.04); position: absolute; z-index: 0; pointer-events: none; white-space: nowrap; }
+  .ghost-dark { color: rgba(212,203,191,0.03); }
+
+  /* === ABOUT === */
+  .about { position: relative; display: flex; min-height: 550px; overflow: hidden; }
+  .about-text { width: 55%; padding: 80px 48px; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; }
+  .about-image { width: 45%; position: relative; overflow: hidden; }
+  .about-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .section-label-sm { font-size: 11px; letter-spacing: 3px; text-transform: lowercase; color: #999; margin-bottom: 24px; }
+  .heading-lg { font-size: 56px; font-weight: 800; text-transform: lowercase; line-height: 0.92; letter-spacing: -2px; margin-bottom: 24px; }
+  .body-text { font-size: 15px; line-height: 1.75; font-weight: 300; color: #666; max-width: 440px; }
+  .stats-row { display: flex; gap: 40px; margin-top: 32px; }
+  .stat-num { font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: lowercase; color: #999; margin-top: 4px; }
+  .bracket-link { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: lowercase; text-decoration: underline; text-underline-offset: 3px; color: #1a1a1a; margin-top: 24px; }
+  .bracket-link::before { content: "[  "; font-weight: 300; }
+  .bracket-link::after { content: "  ]"; font-weight: 300; }
+
+  /* === PARALLAX === */
+  .parallax { position: relative; height: 500px; overflow: hidden; }
+  .parallax img { position: absolute; inset: -15% 0; width: 100%; height: 130%; object-fit: cover; }
+
+  /* === EXPERIENCE === */
+  .experience { background: #1a1a1a; color: #d4cbbf; padding: 80px 48px; position: relative; }
+  .exp-header { margin-bottom: 48px; }
+  .exp-header h2 { font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: lowercase; }
+  .exp-item { display: flex; gap: 32px; padding: 24px 0; border-top: 1px solid rgba(212,203,191,0.08); align-items: baseline; }
+  .exp-year { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 15px; opacity: 0.3; width: 110px; flex-shrink: 0; }
+  .exp-role { font-size: 15px; font-weight: 500; }
+  .exp-desc { font-size: 13px; font-weight: 300; opacity: 0.35; margin-left: auto; }
+
+  /* === TRAVEL COLLAGE === */
+  .travel {
+    position: relative;
+    min-height: 1260px;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  /* Stacked full-width bands with diagonal cuts */
+  .collage {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .collage-band {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  .collage-band img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Dark overlay so city names read */
+  .collage-band::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.65);
+    pointer-events: none;
+  }
+
+  /* City names — stacked full width, uniform size */
+  .travel-cities {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 0;
+  }
+  .city {
+    text-transform: lowercase;
+    line-height: 0.85;
+    letter-spacing: -0.5vw;
+    font-size: 9vw;
+    font-weight: 800;
+    padding-left: 24px;
+  }
+  .city-bold {
+    color: #f5f2ed;
+  }
+  .city-outline {
+    -webkit-text-stroke: 2px rgba(245,242,237,0.35);
+    color: transparent;
+  }
+  .city-ghost {
+    color: rgba(245,242,237,0.12);
+  }
+
+  /* === CONTACT === */
+  .contact { padding: 100px 48px 60px; position: relative; }
+  .contact h2 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 56px; font-weight: 400; line-height: 1.1; margin-bottom: 16px; }
+  .contact p { font-size: 14px; font-weight: 300; color: #888; max-width: 380px; line-height: 1.6; }
+  .contact-links { display: flex; gap: 24px; margin-top: 32px; }
+  .contact-footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid rgba(26,26,26,0.1); display: flex; justify-content: space-between; align-items: baseline; }
+  .contact-footer .logo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; }
+  .contact-footer .copy { font-size: 10px; letter-spacing: 2px; color: #aaa; }
+
+  .annotation { max-width: 900px; margin: 4px auto 28px; padding: 12px 20px; background: rgba(26,26,26,0.92); border-radius: 8px; border-left: 3px solid #c9a96e; }
+  .annotation h4 { font-size: 11px; font-weight: 600; color: #c9a96e; margin-bottom: 3px; letter-spacing: 1px; text-transform: uppercase; }
+  .annotation p { font-size: 12px; color: #999; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-logo">andy nguyen</div>
+  <div class="nav-links"><span>about</span><span>experience</span><span>contact</span></div>
+</div>
+
+<!-- === 1. HERO — vinyl === -->
+<div class="hero">
+  <img class="hero-bg warm-dark" src="public/assets/images/vinyl.jpg" alt="">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="hero-title">covix krew</div>
+    <div class="hero-sub">full s<span style="color: #ffffff; opacity: 1;">n</span>ack developer</div>
+  </div>
+  <div class="hero-scroll">
+    <span class="active">andy nguyen</span>
+    <span>kyndryl · dallas</span>
+    <span class="s-right">scroll</span>
+  </div>
+</div>
+
+<!-- === 2. ABOUT === -->
+<div class="about">
+  <div class="ghost" style="top: 10px; left: -10px;">about</div>
+  <div class="about-text">
+    <div class="section-label-sm">02 — about</div>
+    <div class="heading-lg">denver raised.<br>cloud platforms.<br>agentic ai.</div>
+    <p class="body-text">a decade at ibm — shipping cloud platforms, kubernetes migrations, and innovation projects across health-tech and enterprise. did time in the bay, now crafting agentic ai at kyndryl out of dallas.</p>
+    <p class="body-text" style="margin-top: 12px;">along the way i picked up vinyl, passport stamps, and a mean toprock.</p>
+    <div class="stats-row">
+      <div><div class="stat-num">14+</div><div class="stat-label">years building</div></div>
+      <div><div class="stat-num">10</div><div class="stat-label">years at ibm</div></div>
+    </div>
+    <span class="bracket-link">linkedin</span>
+  </div>
+  <div class="about-image">
+    <img src="public/assets/images/cafe-portrait.jpg" alt="" style="object-position: center 15%; filter: sepia(25%) saturate(60%) brightness(85%) contrast(100%) hue-rotate(-5deg);">
+  </div>
+</div>
+
+<!-- === 3. PARALLAX — korea coast === -->
+<div class="parallax">
+  <img class="warm" src="public/assets/images/korea-coast.jpg" alt="" style="object-position: center center;">
+</div>
+
+<!-- === 4. EXPERIENCE === -->
+<div class="experience">
+  <div class="ghost ghost-dark" style="top: 10px; right: 48px;">exp</div>
+  <div class="exp-header"><h2>experience</h2></div>
+  <div class="exp-item"><div class="exp-year">2026 —</div><div class="exp-role">agentic ai engineer</div><div class="exp-desc">kyndryl · dallas</div></div>
+  <div class="exp-item"><div class="exp-year">2024 — 26</div><div class="exp-role">senior developer & ai csm</div><div class="exp-desc">ibm · remote</div></div>
+  <div class="exp-item"><div class="exp-year">2020 — 24</div><div class="exp-role">senior developer, cloud expert labs</div><div class="exp-desc">ibm · san francisco</div></div>
+  <div class="exp-item"><div class="exp-year">2015 — 20</div><div class="exp-role">senior developer, cloud garage</div><div class="exp-desc">ibm · san francisco</div></div>
+  <div class="exp-item"><div class="exp-year">2011 — 14</div><div class="exp-role">sap master data analyst</div><div class="exp-desc">leprino foods · denver</div></div>
+  <div class="exp-item"><div class="exp-year">2008 — 11</div><div class="exp-role">portfolio accountant · risk analyst</div><div class="exp-desc">alps · xcel energy</div></div>
+</div>
+
+<!-- === 5. TRAVEL COLLAGE — Detroit Paris style === -->
+<div class="travel">
+
+  <!-- Stacked bands — diagonal line between each photo -->
+  <div class="collage">
+    <!-- dubai -->
+    <div class="collage-band" style="top: 0; height: 350px; clip-path: polygon(0% 0%, 100% 0%, 100% 88%, 0% 100%);">
+      <img class="warm" src="public/assets/images/dubai.jpg" alt="" style="object-position: 35% 20%;">
+    </div>
+
+    <!-- night-out-crew -->
+    <div class="collage-band" style="top: 300px; height: 350px; clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 88%);">
+      <img class="warm" src="public/assets/images/night-out-crew.jpg" alt="" style="object-position: center 15%;">
+    </div>
+
+    <!-- hanbok-hanok -->
+    <div class="collage-band" style="top: 600px; height: 350px; clip-path: polygon(0% 0%, 100% 12%, 100% 88%, 0% 100%);">
+      <img class="warm" src="public/assets/images/hanbok-hanok.jpg" alt="" style="object-position: center center;">
+    </div>
+
+    <!-- camry -->
+    <div class="collage-band" style="top: 900px; height: 360px; clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);">
+      <img class="warm" src="public/assets/images/camry.jpg" alt="" style="object-position: 40% 20%;">
+    </div>
+  </div>
+
+  <!-- Travel story — pinned to the right -->
+  <div style="position: absolute; z-index: 3; top: 120px; right: 48px; width: 280px;">
+    <div class="section-label-sm" style="color: rgba(245,242,237,0.5);">places that shaped me</div>
+    <p style="font-size: 14px; line-height: 1.75; font-weight: 300; color: #d4cbbf;">i travel for the spontaneous turns — the wrong alley that leads to the best meal, the stranger who rewrites your perspective over coffee. every city taught me something i couldn't google. city lights and insomnia walks — this is my classroom.</p>
+  </div>
+
+  <!-- City names — full width, stacked, all same size -->
+  <div class="travel-cities">
+    <div class="city city-bold">seoul</div>
+    <div class="city city-outline">london</div>
+    <div class="city city-ghost">melbourne</div>
+    <div class="city city-outline">são paulo</div>
+    <div class="city city-bold">vietnam</div>
+    <div class="city city-outline">waikiki</div>
+    <div class="city city-ghost">los angeles</div>
+    <div class="city city-outline">san diego</div>
+    <div class="city city-bold">rosarito</div>
+    <div class="city city-ghost">winnipeg</div>
+    <div class="city city-outline">las vegas</div>
+    <div class="city city-ghost">dubai</div>
+  </div>
+
+</div>
+
+<div class="annotation">
+  <h4>travel collage</h4>
+  <p>Only <strong>seoul</strong> and <strong>vietnam</strong> bold black. All city names same 14vw size. Photos are large collage pieces filling the background — some cropped diagonally, some straight, overlapping and scattered. In production these parallax at different speeds via Framer Motion.</p>
+</div>
+
+<!-- === CONTACT === -->
+<div class="contact">
+  <div class="ghost" style="top: 20px; left: 48px; font-size: 140px;">connect</div>
+  <h2>let's build<br>something</h2>
+  <p>always down to talk ai, dig through crates, or plan the next trip.</p>
+  <div class="contact-links">
+    <span class="bracket-link">github</span>
+    <span class="bracket-link">linkedin</span>
+    <span class="bracket-link">email</span>
+  </div>
+  <div class="contact-footer">
+    <div class="logo">andy nguyen</div>
+    <div class="copy">© 2026</div>
+  </div>
+</div>
+
+<div style="height: 40px;"></div>
+
+</body>
+</html>
