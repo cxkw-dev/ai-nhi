@@ -2,9 +2,8 @@ import { useState } from 'react';
 
 const pulseKeyframes = `
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.8; }
-  70% { transform: scale(2.2); opacity: 0; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
 }
 `;
 
@@ -41,7 +40,7 @@ export default function MusicPlayer() {
           position: 'absolute', bottom: 0, right: 0,
           width: '44px', height: '44px', borderRadius: '50%',
           border: '2px solid rgba(26,26,26,0.4)',
-          animation: 'pulse-ring 2s ease-out infinite',
+          animation: 'pulse-ring 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
           pointerEvents: 'none',
         }} />
       )}
