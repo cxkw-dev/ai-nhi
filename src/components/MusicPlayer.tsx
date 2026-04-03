@@ -15,7 +15,7 @@ export default function MusicPlayer() {
       position: 'fixed', bottom: '28px', right: '28px', zIndex: 100,
     }}>
       <style>{pulseKeyframes}</style>
-      {/* Spotify embed — slides up when open */}
+      {/* Spotify embed — always loaded but hidden until open, autoplay enabled */}
       <div style={{
         position: 'absolute', bottom: '52px', right: 0,
         width: '300px', height: open ? '80px' : '0px',
@@ -23,15 +23,16 @@ export default function MusicPlayer() {
         transition: 'height 0.3s ease',
         boxShadow: open ? '0 4px 24px rgba(0,0,0,0.3)' : 'none',
       }}>
-        <iframe
-          src="https://open.spotify.com/embed/track/3gS6Nh0LNlKsMblEzVNt3l?utm_source=generator&theme=0"
-          width="300"
-          height="80"
-          frameBorder="0"
-          allow="autoplay; clipboard-write; encrypted-media"
-          loading="lazy"
-          style={{ borderRadius: '8px' }}
-        />
+        {open && (
+          <iframe
+            src="https://open.spotify.com/embed/track/3gS6Nh0LNlKsMblEzVNt3l?utm_source=generator&theme=0&autoplay=1"
+            width="300"
+            height="80"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media"
+            style={{ borderRadius: '8px' }}
+          />
+        )}
       </div>
 
       {/* Pulse ring — only when closed */}
@@ -39,7 +40,7 @@ export default function MusicPlayer() {
         <div style={{
           position: 'absolute', bottom: 0, right: 0,
           width: '44px', height: '44px', borderRadius: '50%',
-          border: '2px solid rgba(201,169,110,0.4)',
+          border: '2px solid rgba(255,255,255,0.5)',
           animation: 'pulse-ring 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
           pointerEvents: 'none',
         }} />
