@@ -22,15 +22,28 @@ const cityColors = {
   ghost: { color: 'rgba(245,242,237,0.12)' },
 };
 
-const bands = [
-  { img: 'dubai.jpg', top: 0, height: 350, clip: 'polygon(0% 0%, 100% 0%, 100% 88%, 0% 100%)', pos: '35% 20%' },
-  { img: 'night-out-crew.jpg', top: 300, height: 350, clip: 'polygon(0% 12%, 100% 0%, 100% 100%, 0% 88%)', pos: 'center 15%' },
-  { img: 'hanbok-hanok.jpg', top: 600, height: 350, clip: 'polygon(0% 0%, 100% 12%, 100% 88%, 0% 100%)', pos: 'center center' },
-  { img: 'camry.jpg', top: 900, height: 360, clip: 'polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%)', pos: '40% 20%' },
+const SKEW = 6; // percentage offset from center for diagonal
+const MAX_W = 50 + SKEW; // 56% — widest extent of each half
+
+const photos: { img: string; pos: string; side: 'left' | 'right'; row: number }[] = [
+  { img: 'dubai.jpg', pos: '40% 15%', side: 'left', row: 0 },
+  { img: 'night-out-crew.jpg', pos: '50% 30%', side: 'right', row: 0 },
+  { img: 'camry.jpg', pos: '50% 20%', side: 'left', row: 1 },
+  { img: 'hanbok-hanok.jpg', pos: '55% 30%', side: 'right', row: 1 },
 ];
 
-function ParallaxBand({ img, top, height, clip, pos, base }: {
-  img: string; top: number; height: number; clip: string; pos: string; base: string;
+function getClipPath(side: 'left' | 'right') {
+  // clip-path relative to the half-width container
+  const diagonalEnd = ((50 - SKEW) / MAX_W * 100).toFixed(1);
+  const diagonalStart = ((2 * SKEW) / MAX_W * 100).toFixed(1);
+  if (side === 'left') {
+    return `polygon(0 0, 100% 0, ${diagonalEnd}% 100%, 0 100%)`;
+  }
+  return `polygon(${diagonalStart}% 0, 100% 0, 100% 100%, 0 100%)`;
+}
+
+function ParallaxPhoto({ img, pos, base, side, row }: {
+  img: string; pos: string; base: string; side: 'left' | 'right'; row: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
@@ -40,8 +53,13 @@ function ParallaxBand({ img, top, height, clip, pos, base }: {
     <div
       ref={ref}
       style={{
-        position: 'absolute', left: 0, width: '100%', overflow: 'hidden',
-        top: `${top}px`, height: `${height}px`, clipPath: clip,
+        position: 'absolute',
+        top: `${row * 50}%`,
+        left: side === 'left' ? 0 : `${50 - SKEW}%`,
+        width: `${MAX_W}%`,
+        height: '50%',
+        clipPath: getClipPath(side),
+        overflow: 'hidden',
       }}
     >
       <motion.img
@@ -49,7 +67,7 @@ function ParallaxBand({ img, top, height, clip, pos, base }: {
         src={`${base}/assets/images/${img}`}
         alt=""
         style={{
-          width: '100%', height: '120%', objectFit: 'cover', objectPosition: pos, y,
+          position: 'absolute', width: '100%', height: '120%', objectFit: 'cover', objectPosition: pos, y,
         }}
       />
       <div style={{
@@ -63,10 +81,12 @@ function ParallaxBand({ img, top, height, clip, pos, base }: {
 export default function Travel({ base = '' }: { base?: string }) {
   return (
     <div data-section="travel" style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
-      {/* Image bands — gentle parallax */}
-      <div data-travel="bands" style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden' }}>
-        {bands.map((band, i) => (
-          <ParallaxBand key={i} {...band} base={base} />
+      {/* Layered photos — 2x2 grid, no gaps */}
+      <div data-travel="photos" style={{
+        position: 'absolute', inset: 0, zIndex: 1,
+      }}>
+        {photos.map((photo, i) => (
+          <ParallaxPhoto key={i} {...photo} base={base} />
         ))}
       </div>
 

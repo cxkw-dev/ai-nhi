@@ -168,11 +168,7 @@ img { display: block; }
     padding-left: 12px !important;
   }
 
-  /* image band heights — compress for shorter section */
-  [data-travel="bands"] > div:nth-child(1) { top: 0 !important; height: 280px !important; }
-  [data-travel="bands"] > div:nth-child(2) { top: 240px !important; height: 280px !important; }
-  [data-travel="bands"] > div:nth-child(3) { top: 480px !important; height: 280px !important; }
-  [data-travel="bands"] > div:nth-child(4) { top: 720px !important; height: 280px !important; }
+  /* diagonal photo stack — no overrides needed, layout is already column */
 
 
   /* --- contact -------------------------------------------- */
