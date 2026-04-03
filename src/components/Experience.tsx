@@ -5,9 +5,12 @@ const jobs = [
     year: '2026 —',
     role: 'agentic ai engineer',
     org: 'kyndryl · dallas',
-    desc: 'building autonomous agents that think, plan, and ship.',
-    projects: [],
-    tech: ['anthropic claude', 'github copilot', 'python', 'typescript'],
+    desc: 'building autonomous agents that think, plan, and ship — from prototype to production across enterprise.',
+    projects: [
+      'designing multi-agent architectures that orchestrate across tools, apis, and knowledge bases. agents that don\'t just answer — they act.',
+      'evaluating and integrating the full model landscape. picking the right brain for the right job.',
+    ],
+    tech: ['anthropic claude', 'openai codex', 'google agent adk', 'langchain', 'crew ai', 'mcp', 'github copilot', 'claude code', 'cline', 'gemini', 'python', 'typescript', 'milvus', 'chromadb'],
   },
   {
     year: '2024 — 26',
