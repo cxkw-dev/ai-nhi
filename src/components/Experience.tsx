@@ -1,5 +1,4 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const jobs = [
   { year: '2026 —', role: 'agentic ai engineer', desc: 'kyndryl · dallas' },
@@ -11,11 +10,8 @@ const jobs = [
 ];
 
 export default function Experience() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
   return (
-    <div id="experience" ref={ref} style={{
+    <div id="experience" style={{
       background: '#1a1a1a', color: '#d4cbbf', padding: '80px 48px', position: 'relative',
     }}>
       <div style={{
@@ -25,16 +21,23 @@ export default function Experience() {
         top: '10px', right: '48px',
       }}>exp</div>
 
-      <div style={{ marginBottom: '48px' }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        style={{ marginBottom: '48px' }}
+      >
         <h2 style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '3px', textTransform: 'lowercase' as const }}>experience</h2>
-      </div>
+      </motion.div>
 
       {jobs.map((job, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.6 }}
           style={{
             display: 'flex', gap: '32px', padding: '24px 0',
             borderTop: '1px solid rgba(212,203,191,0.08)', alignItems: 'baseline',

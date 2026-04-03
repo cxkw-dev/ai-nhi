@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const cities: { name: string; style: 'bold' | 'outline' | 'ghost' }[] = [
@@ -29,20 +29,16 @@ const bands = [
   { img: 'camry.jpg', top: 900, height: 360, clip: 'polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%)', pos: '40% 20%' },
 ];
 
-function ParallaxBand({ img, top, height, clip, pos, base, index }: {
-  img: string; top: number; height: number; clip: string; pos: string; base: string; index: number;
+function ParallaxBand({ img, top, height, clip, pos, base }: {
+  img: string; top: number; height: number; clip: string; pos: string; base: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
       style={{
         position: 'absolute', left: 0, width: '100%', overflow: 'hidden',
         top: `${top}px`, height: `${height}px`, clipPath: clip,
@@ -60,41 +56,45 @@ function ParallaxBand({ img, top, height, clip, pos, base, index }: {
         position: 'absolute', inset: 0,
         background: 'rgba(26, 26, 26, 0.65)', pointerEvents: 'none',
       }} />
-    </motion.div>
+    </div>
   );
 }
 
 export default function Travel({ base = '' }: { base?: string }) {
-  const citiesRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(citiesRef, { once: true, margin: '-80px' });
-
   return (
     <div style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
-      {/* Image bands */}
+      {/* Image bands — gentle parallax */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden' }}>
         {bands.map((band, i) => (
-          <ParallaxBand key={i} {...band} base={base} index={i} />
+          <ParallaxBand key={i} {...band} base={base} />
         ))}
       </div>
 
       {/* Travel story */}
-      <div style={{ position: 'absolute', zIndex: 3, top: '120px', right: '48px', width: '280px' }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 1 }}
+        style={{ position: 'absolute', zIndex: 3, top: '120px', right: '48px', width: '280px' }}
+      >
         <div style={{ fontSize: '11px', letterSpacing: '3px', textTransform: 'lowercase' as const, color: 'rgba(245,242,237,0.5)', marginBottom: '24px' }}>places that shaped me</div>
         <p style={{ fontSize: '14px', lineHeight: 1.75, fontWeight: 300, color: '#d4cbbf' }}>
           i travel for the spontaneous turns — the wrong alley that leads to the best meal, the stranger who rewrites your perspective over coffee. every city taught me something i couldn't google. city lights and insomnia walks — this is my classroom.
         </p>
-      </div>
+      </motion.div>
 
-      {/* City names */}
-      <div ref={citiesRef} style={{
+      {/* City names — simple fade in */}
+      <div style={{
         position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', padding: '80px 0',
       }}>
-        {cities.map((city, i) => (
+        {cities.map((city) => (
           <motion.div
             key={city.name}
-            initial={{ opacity: 0, x: -60 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: i * 0.07, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.6 }}
             style={{
               textTransform: 'lowercase' as const, lineHeight: 0.85,
               letterSpacing: '-0.5vw', fontSize: '9vw', fontWeight: 800,
