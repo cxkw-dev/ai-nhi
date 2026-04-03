@@ -35,16 +35,6 @@ export default function Hero({ base = '' }: { base?: string }) {
         <motion.div style={{ opacity: contentOpacity }}>
           <div style={{
             fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: '#f5f2ed',
-          }}>covix krew</div>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: 'rgba(245,242,237,0.35)',
-          }}>
-            full s<span style={{ color: '#ffffff', opacity: 1 }}>n</span>ack developer
-          </div>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
             lineHeight: 1.1, letterSpacing: '1px', color: '#f5f2ed', marginTop: '8px',
           }}>nocturnal</div>
           <div style={{
