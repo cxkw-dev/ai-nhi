@@ -8,8 +8,8 @@ export default function Nav() {
         mixBlendMode: 'difference' as const,
       }}>
         <div style={{
-          fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-          fontSize: '13px', letterSpacing: '3px', color: '#f5f2ed',
+          fontFamily: "'Libre Barcode 39 Text', cursive",
+          fontSize: '28px', letterSpacing: '3px', color: '#f5f2ed',
           writingMode: 'vertical-rl' as const, transform: 'rotate(180deg)',
         }}>andy nguyen</div>
       </div>
