@@ -1,3 +1,8 @@
+const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
+
 export default function Nav() {
   return (
     <>
@@ -24,9 +29,14 @@ export default function Nav() {
           display: 'flex', gap: '28px', fontSize: '11px', letterSpacing: '2px',
           textTransform: 'lowercase' as const, fontWeight: 700, color: '#f5f2ed',
         }}>
-          <a href="#about" style={{ color: 'inherit', textDecoration: 'none' }}>about</a>
-          <a href="#experience" style={{ color: 'inherit', textDecoration: 'none' }}>experience</a>
-          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none' }}>contact</a>
+          {(['about', 'experience', 'contact'] as const).map((section) => (
+            <a
+              key={section}
+              href={`#${section}`}
+              onClick={(e) => scrollTo(e, section)}
+              style={{ color: 'inherit', textDecoration: 'none' }}
+            >{section}</a>
+          ))}
         </div>
       </nav>
     </>

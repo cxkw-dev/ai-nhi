@@ -1,4 +1,12 @@
 import { motion } from 'framer-motion';
+import type { IconType } from 'react-icons';
+import {
+  SiAnthropic, SiClaude, SiOpenai, SiGoogle, SiLangchain, SiGithubcopilot,
+  SiGooglegemini, SiPython, SiTypescript, SiMilvus, SiOllama, SiCrewai,
+  SiLangflow, SiReact, SiNextdotjs, SiTrpc, SiPrisma, SiPostgresql,
+  SiRedis, SiRedhatopenshift, SiTerraform, SiNodedotjs, SiExpress,
+  SiKubernetes, SiDocker, SiCloudfoundry, SiSap,
+} from 'react-icons/si';
 
 const jobs = [
   {
@@ -69,6 +77,37 @@ const jobs = [
   },
 ];
 
+const techIcons: Record<string, { icon: IconType; color?: string }> = {
+  'anthropic claude': { icon: SiAnthropic, color: '#D97757' },
+  'openai codex':     { icon: SiOpenai, color: '#412991' },
+  'google agent adk': { icon: SiGoogle, color: '#4285F4' },
+  'langchain':        { icon: SiLangchain, color: '#7FC8FF' },
+  'crew ai':          { icon: SiCrewai, color: '#FF5A50' },
+  'github copilot':   { icon: SiGithubcopilot, color: '#6cc644' },
+  'claude code':      { icon: SiClaude, color: '#D97757' },
+  'gemini':           { icon: SiGooglegemini, color: '#8E75B2' },
+  'python':           { icon: SiPython, color: '#3776AB' },
+  'typescript':       { icon: SiTypescript, color: '#3178C6' },
+  'milvus':           { icon: SiMilvus, color: '#00A1EA' },
+  'anthropic mcp':    { icon: SiAnthropic, color: '#D97757' },
+  'llama':            { icon: SiOllama, color: '#EEEEEE' },
+  'langflow':         { icon: SiLangflow, color: '#FF6E42' },
+  'react':            { icon: SiReact, color: '#61DAFB' },
+  'next.js':          { icon: SiNextdotjs, color: '#EEEEEE' },
+  'trpc':             { icon: SiTrpc, color: '#2596BE' },
+  'prisma':           { icon: SiPrisma, color: '#5A67D8' },
+  'postgres':         { icon: SiPostgresql, color: '#4169E1' },
+  'redis':            { icon: SiRedis, color: '#FF4438' },
+  'openshift':        { icon: SiRedhatopenshift, color: '#EE0000' },
+  'terraform':        { icon: SiTerraform, color: '#844FBA' },
+  'node':             { icon: SiNodedotjs, color: '#5FA04E' },
+  'express':          { icon: SiExpress, color: '#EEEEEE' },
+  'kubernetes':       { icon: SiKubernetes, color: '#326CE5' },
+  'docker':           { icon: SiDocker, color: '#2496ED' },
+  'cloud foundry':    { icon: SiCloudfoundry, color: '#0C9ED5' },
+  'sap':              { icon: SiSap, color: '#0FAAFF' },
+};
+
 export default function Experience() {
   return (
     <div id="experience" data-section="experience" style={{
@@ -135,13 +174,20 @@ export default function Experience() {
             marginTop: '12px', marginLeft: '142px',
             display: 'flex', flexWrap: 'wrap' as const, gap: '6px',
           }}>
-            {job.tech.map((t) => (
-              <span key={t} style={{
-                fontSize: '9px', letterSpacing: '1px', textTransform: 'lowercase' as const,
-                padding: '2px 8px', border: '1px solid rgba(212,203,191,0.1)',
-                borderRadius: '2px', color: 'rgba(212,203,191,0.35)',
-              }}>{t}</span>
-            ))}
+            {job.tech.map((t) => {
+              const entry = techIcons[t];
+              return (
+                <span key={t} style={{
+                  fontSize: '9px', letterSpacing: '1px', textTransform: 'lowercase' as const,
+                  padding: '2px 8px', border: '1px solid rgba(212,203,191,0.1)',
+                  borderRadius: '2px', color: 'rgba(212,203,191,0.35)',
+                  display: 'inline-flex', alignItems: 'center', gap: '5px',
+                }}>
+                  {entry && <entry.icon style={{ fontSize: '11px', color: entry.color }} />}
+                  {t}
+                </span>
+              );
+            })}
           </div>
         </motion.div>
       ))}

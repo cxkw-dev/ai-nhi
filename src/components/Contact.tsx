@@ -26,12 +26,15 @@ export default function Contact() {
         </p>
 
         <div style={{ display: 'flex', gap: '24px', marginTop: '32px' }}>
-          {['github', 'linkedin', 'email'].map((link) => (
-            <a key={link} href="#" style={{
+          {[
+            { label: 'github', href: 'https://github.com/cxkw-dev' },
+            { label: 'linkedin', href: 'https://www.linkedin.com/in/andynhi' },
+          ].map((link) => (
+            <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
               display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px',
               textTransform: 'lowercase' as const, textDecoration: 'underline', textUnderlineOffset: '3px',
               color: '#1a1a1a',
-            }}>[&nbsp;&nbsp;{link}&nbsp;&nbsp;]</a>
+            }}>[&nbsp;&nbsp;{link.label}&nbsp;&nbsp;]</a>
           ))}
         </div>
       </motion.div>

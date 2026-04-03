@@ -72,7 +72,7 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
       />
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'rgba(26, 26, 26, 0.65)', pointerEvents: 'none',
+        background: 'rgba(26, 26, 26, 0.75)', pointerEvents: 'none',
       }} />
     </div>
   );
