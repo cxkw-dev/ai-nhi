@@ -1,5 +1,13 @@
 import { useState } from 'react';
 
+const pulseKeyframes = `
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+`;
+
 export default function MusicPlayer() {
   const [open, setOpen] = useState(false);
 
@@ -7,6 +15,7 @@ export default function MusicPlayer() {
     <div style={{
       position: 'fixed', bottom: '28px', right: '28px', zIndex: 100,
     }}>
+      <style>{pulseKeyframes}</style>
       {/* Spotify embed — slides up when open */}
       <div style={{
         position: 'absolute', bottom: '52px', right: 0,
@@ -25,6 +34,17 @@ export default function MusicPlayer() {
           style={{ borderRadius: '8px' }}
         />
       </div>
+
+      {/* Pulse ring — only when closed */}
+      {!open && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          width: '44px', height: '44px', borderRadius: '50%',
+          border: '1.5px solid rgba(26,26,26,0.2)',
+          animation: 'pulse-ring 2s ease-out infinite',
+          pointerEvents: 'none',
+        }} />
+      )}
 
       {/* Custom toggle button */}
       <button
