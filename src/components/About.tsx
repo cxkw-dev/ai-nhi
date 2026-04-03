@@ -14,7 +14,7 @@ export default function About({ base = '' }: { base?: string }) {
   };
 
   return (
-    <div id="about" style={{
+    <div id="about" data-section="about" style={{
       position: 'relative', display: 'flex', minHeight: '550px', overflow: 'hidden',
     }}>
       <div style={{
@@ -24,7 +24,7 @@ export default function About({ base = '' }: { base?: string }) {
         top: '10px', left: '-10px',
       }}>about</div>
 
-      <div style={{
+      <div data-about="text" style={{
         width: '55%', padding: '80px 48px', position: 'relative', zIndex: 2,
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}>
@@ -33,7 +33,7 @@ export default function About({ base = '' }: { base?: string }) {
         </motion.div>
 
         <motion.div {...fade} transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}>
-          <div style={{
+          <div data-about="heading" style={{
             fontSize: '56px', fontWeight: 800, textTransform: 'lowercase' as const,
             lineHeight: 0.92, letterSpacing: '-2px', marginBottom: '24px',
           }}>denver raised.<br />cloud platforms.<br />agentic ai.</div>
@@ -48,7 +48,7 @@ export default function About({ base = '' }: { base?: string }) {
           </p>
         </motion.div>
 
-        <motion.div {...fade} transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }} style={{ display: 'flex', gap: '40px', marginTop: '32px' }}>
+        <motion.div data-about="stats" {...fade} transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }} style={{ display: 'flex', gap: '40px', marginTop: '32px' }}>
           <div>
             <div style={{ fontSize: '36px', fontWeight: 800, lineHeight: 1, letterSpacing: '-1px' }}>14+</div>
             <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'lowercase' as const, color: '#999', marginTop: '4px' }}>years building</div>
@@ -71,7 +71,7 @@ export default function About({ base = '' }: { base?: string }) {
       </div>
 
       {/* Image — gentle parallax drift, no flashy reveals */}
-      <div ref={imgRef} style={{ width: '45%', position: 'relative', overflow: 'hidden' }}>
+      <div data-about="image" ref={imgRef} style={{ width: '45%', position: 'relative', overflow: 'hidden' }}>
         <motion.img
           src={`${base}/assets/images/cafe-portrait.jpg`}
           alt=""

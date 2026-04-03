@@ -11,7 +11,7 @@ export default function MusicPlayer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{
+    <div data-section="music-player" style={{
       position: 'fixed', bottom: '28px', right: '28px', zIndex: 100,
     }}>
       <style>{pulseKeyframes}</style>

@@ -2,7 +2,7 @@ export default function Nav() {
   return (
     <>
       {/* Vertical name — fixed left edge */}
-      <div style={{
+      <div data-nav="vertical-name" style={{
         position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100,
         width: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center',
         mixBlendMode: 'difference' as const,
@@ -15,7 +15,7 @@ export default function Nav() {
       </div>
 
       {/* Top-right nav links */}
-      <nav style={{
+      <nav data-nav="links" style={{
         position: 'fixed', top: 0, right: 0, zIndex: 100,
         padding: '24px 48px',
         mixBlendMode: 'difference' as const,

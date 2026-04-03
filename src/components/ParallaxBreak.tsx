@@ -7,7 +7,7 @@ export default function ParallaxBreak({ base = '' }: { base?: string }) {
   const y = useTransform(scrollYProgress, [0, 1], ['-15%', '15%']);
 
   return (
-    <div ref={ref} style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
+    <div ref={ref} data-section="parallax-break" style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
       <motion.img
         className="warm"
         src={`${base}/assets/images/korea-coast.jpg`}

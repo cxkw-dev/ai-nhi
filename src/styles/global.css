@@ -5,3 +5,216 @@ body { background: #f5f2ed; color: #1a1a1a; font-family: 'Outfit', sans-serif; o
 img { display: block; }
 .warm { filter: sepia(15%) saturate(80%) brightness(95%) contrast(95%); }
 .warm-dark { filter: sepia(15%) saturate(75%) brightness(90%) contrast(105%); }
+
+/* =========================================================
+   mobile responsive — under 768px
+   !important is needed throughout because components use
+   inline React styles which have highest specificity.
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  /* --- nav ------------------------------------------------ */
+
+  /* hide vertical name on the left edge — eats too much space */
+  [data-nav="vertical-name"] {
+    display: none !important;
+  }
+
+  /* shrink nav link padding, keep top-right */
+  [data-nav="links"] {
+    padding: 16px 20px !important;
+  }
+
+  [data-nav="links"] > div {
+    gap: 18px !important;
+    font-size: 10px !important;
+  }
+
+
+  /* --- hero ----------------------------------------------- */
+
+  [data-section="hero"] {
+    min-height: 100svh !important;
+    min-height: 560px !important;
+  }
+
+  /* hero bottom text block */
+  [data-hero="text"] {
+    padding: 0 20px 10px !important;
+  }
+
+  [data-hero="text"] > div > div {
+    font-size: 22px !important;
+  }
+
+  /* hero footer bar (andy nguyen / kyndryl / scroll) */
+  [data-hero="footer"] {
+    margin: 0 20px !important;
+    padding: 14px 0 20px !important;
+  }
+
+  [data-hero="footer"] span {
+    font-size: 12px !important;
+    margin-right: 16px !important;
+  }
+
+
+  /* --- about ---------------------------------------------- */
+
+  /* stack vertically: text on top, image below */
+  [data-section="about"] {
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* text column — full width */
+  [data-about="text"] {
+    width: 100% !important;
+    padding: 60px 20px 40px !important;
+  }
+
+  /* shrink the big heading */
+  [data-about="heading"] {
+    font-size: 36px !important;
+    letter-spacing: -1px !important;
+  }
+
+  /* image column — full width, fixed height */
+  [data-about="image"] {
+    width: 100% !important;
+    height: 360px !important;
+  }
+
+  /* about background watermark */
+  [data-section="about"] > div:first-child {
+    font-size: 90px !important;
+    letter-spacing: -4px !important;
+  }
+
+  /* stats row */
+  [data-about="stats"] {
+    gap: 28px !important;
+  }
+
+  [data-about="stats"] > div > div:first-child {
+    font-size: 28px !important;
+  }
+
+
+  /* --- experience ----------------------------------------- */
+
+  [data-section="experience"] {
+    padding: 60px 20px !important;
+  }
+
+  /* background watermark */
+  [data-section="experience"] > div:first-child {
+    font-size: 90px !important;
+    letter-spacing: -4px !important;
+    right: 20px !important;
+  }
+
+  /* header rows: stack year / role / org vertically */
+  [data-exp="header"] {
+    flex-direction: column !important;
+    gap: 4px !important;
+    align-items: flex-start !important;
+  }
+
+  /* org label — undo margin-left:auto so it sits naturally */
+  [data-exp="header"] > div:last-child {
+    margin-left: 0 !important;
+  }
+
+  /* year column — don't need fixed width on mobile */
+  [data-exp="header"] > div:first-child {
+    width: auto !important;
+  }
+
+  /* description, projects, tech — remove left indent */
+  [data-exp="desc"],
+  [data-exp="projects"],
+  [data-exp="tech"] {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+  }
+
+
+  /* --- travel --------------------------------------------- */
+
+  [data-section="travel"] {
+    min-height: 1000px !important;
+  }
+
+  /* travel story — reposition to top of section, full width */
+  [data-travel="story"] {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    padding: 24px 20px !important;
+    z-index: 4 !important;
+  }
+
+  /* city names column — reduce top padding since story now flows above */
+  [data-travel="cities"] {
+    padding: 20px 0 60px !important;
+  }
+
+  /* city names — slightly smaller on small phones */
+  [data-travel="cities"] > div {
+    font-size: 11vw !important;
+    padding-left: 12px !important;
+  }
+
+  /* image band heights — compress for shorter section */
+  [data-travel="bands"] > div:nth-child(1) { top: 0 !important; height: 280px !important; }
+  [data-travel="bands"] > div:nth-child(2) { top: 240px !important; height: 280px !important; }
+  [data-travel="bands"] > div:nth-child(3) { top: 480px !important; height: 280px !important; }
+  [data-travel="bands"] > div:nth-child(4) { top: 720px !important; height: 280px !important; }
+
+
+  /* --- contact -------------------------------------------- */
+
+  [data-section="contact"] {
+    padding: 60px 20px 40px !important;
+  }
+
+  [data-contact="heading"] {
+    font-size: 38px !important;
+  }
+
+  [data-contact="bg"] {
+    font-size: 80px !important;
+    letter-spacing: -4px !important;
+    left: 20px !important;
+  }
+
+  [data-contact="footer"] {
+    margin-top: 48px !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+
+  /* --- music player --------------------------------------- */
+
+  [data-section="music-player"] {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+
+  /* spotify embed container — narrower on mobile */
+  [data-section="music-player"] > div:first-of-type {
+    width: 260px !important;
+  }
+
+
+  /* --- parallax break ------------------------------------- */
+
+  [data-section="parallax-break"] {
+    height: 300px !important;
+  }
+
+}

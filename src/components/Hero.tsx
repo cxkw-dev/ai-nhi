@@ -8,7 +8,7 @@ export default function Hero({ base = '' }: { base?: string }) {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <div ref={ref} style={{
+    <div ref={ref} data-section="hero" style={{
       position: 'relative', height: '100vh', minHeight: '700px',
       overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
     }}>
@@ -27,6 +27,7 @@ export default function Hero({ base = '' }: { base?: string }) {
       }} />
 
       <motion.div
+        data-hero="text"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease: 'easeOut' }}
@@ -45,6 +46,7 @@ export default function Hero({ base = '' }: { base?: string }) {
       </motion.div>
 
       <motion.div
+        data-hero="footer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, delay: 0.3, ease: 'easeOut' }}

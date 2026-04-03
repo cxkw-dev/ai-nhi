@@ -62,9 +62,9 @@ function ParallaxBand({ img, top, height, clip, pos, base }: {
 
 export default function Travel({ base = '' }: { base?: string }) {
   return (
-    <div style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
+    <div data-section="travel" style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
       {/* Image bands — gentle parallax */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden' }}>
+      <div data-travel="bands" style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden' }}>
         {bands.map((band, i) => (
           <ParallaxBand key={i} {...band} base={base} />
         ))}
@@ -72,6 +72,7 @@ export default function Travel({ base = '' }: { base?: string }) {
 
       {/* Travel story */}
       <motion.div
+        data-travel="story"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -85,7 +86,7 @@ export default function Travel({ base = '' }: { base?: string }) {
       </motion.div>
 
       {/* City names — simple fade in */}
-      <div style={{
+      <div data-travel="cities" style={{
         position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', padding: '80px 0',
       }}>
         {cities.map((city) => (

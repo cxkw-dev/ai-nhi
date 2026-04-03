@@ -71,7 +71,7 @@ const jobs = [
 
 export default function Experience() {
   return (
-    <div id="experience" style={{
+    <div id="experience" data-section="experience" style={{
       background: '#1a1a1a', color: '#d4cbbf', padding: '80px 48px', position: 'relative',
     }}>
       <div style={{
@@ -101,7 +101,7 @@ export default function Experience() {
           style={{ padding: '28px 0', borderTop: '1px solid rgba(212,203,191,0.08)' }}
         >
           {/* Header row */}
-          <div style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
+          <div data-exp="header" style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
             <div style={{
               fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
               fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,
@@ -111,7 +111,7 @@ export default function Experience() {
           </div>
 
           {/* Summary */}
-          <div style={{
+          <div data-exp="desc" style={{
             marginTop: '10px', marginLeft: '142px',
             fontSize: '13px', fontWeight: 300, lineHeight: 1.6, opacity: 0.5,
             maxWidth: '520px',
@@ -119,7 +119,7 @@ export default function Experience() {
 
           {/* Project bullets */}
           {job.projects.length > 0 && (
-            <div style={{ marginTop: '14px', marginLeft: '142px', maxWidth: '520px' }}>
+            <div data-exp="projects" style={{ marginTop: '14px', marginLeft: '142px', maxWidth: '520px' }}>
               {job.projects.map((p, j) => (
                 <div key={j} style={{
                   fontSize: '12px', fontWeight: 300, lineHeight: 1.6,
@@ -131,7 +131,7 @@ export default function Experience() {
           )}
 
           {/* Tech tags */}
-          <div style={{
+          <div data-exp="tech" style={{
             marginTop: '12px', marginLeft: '142px',
             display: 'flex', flexWrap: 'wrap' as const, gap: '6px',
           }}>
@@ -159,7 +159,7 @@ export default function Experience() {
           { year: '2005 — 09', school: 'university of colorado, boulder', detail: 'finance & info systems' },
           { year: '2013 — 15', school: 'galvanize · davinci coders', detail: 'full-stack development' },
         ].map((edu, i) => (
-          <div key={i} style={{ display: 'flex', gap: '32px', padding: '12px 0', alignItems: 'baseline' }}>
+          <div key={i} data-exp="header" style={{ display: 'flex', gap: '32px', padding: '12px 0', alignItems: 'baseline' }}>
             <div style={{
               fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
               fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,

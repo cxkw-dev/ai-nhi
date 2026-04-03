@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 
 export default function Contact() {
   return (
-    <div id="contact" style={{ padding: '100px 48px 60px', position: 'relative' }}>
-      <div style={{
+    <div id="contact" data-section="contact" style={{ padding: '100px 48px 60px', position: 'relative' }}>
+      <div data-contact="bg" style={{
         fontSize: '140px', fontWeight: 800, textTransform: 'lowercase' as const,
         lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(26,26,26,0.04)',
         position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
@@ -16,7 +16,7 @@ export default function Contact() {
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8 }}
       >
-        <h2 style={{
+        <h2 data-contact="heading" style={{
           fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
           fontSize: '56px', fontWeight: 400, lineHeight: 1.1, marginBottom: '16px',
         }}>let's build<br />something</h2>
@@ -36,7 +36,7 @@ export default function Contact() {
         </div>
       </motion.div>
 
-      <div style={{
+      <div data-contact="footer" style={{
         marginTop: '80px', paddingTop: '20px',
         borderTop: '1px solid rgba(26,26,26,0.1)',
         display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
