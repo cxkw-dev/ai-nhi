@@ -4,7 +4,10 @@ import { useRef } from 'react';
 export default function Hero({ base = '' }: { base?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const imgY = useTransform(scrollYProgress, [0, 1], ['-3%', '10%']);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.01]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-34%']);
+  const footerY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
@@ -17,8 +20,8 @@ export default function Hero({ base = '' }: { base?: string }) {
         src={`${base}/assets/images/vinyl.jpg`}
         alt=""
         style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%',
-          objectFit: 'cover', objectPosition: 'center 60%', y: imgY,
+          position: 'absolute', inset: '-7% 0', width: '100%', height: '114%',
+          objectFit: 'cover', objectPosition: 'center 60%', y: imgY, scale: imgScale,
         }}
       />
       <div style={{
@@ -31,7 +34,7 @@ export default function Hero({ base = '' }: { base?: string }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease: 'easeOut' }}
-        style={{ position: 'relative', zIndex: 2, padding: '0 48px 12px' }}
+        style={{ position: 'relative', zIndex: 2, padding: '0 48px 12px', y: textY }}
       >
         <motion.div style={{ opacity: contentOpacity }}>
           <div style={{
@@ -53,7 +56,7 @@ export default function Hero({ base = '' }: { base?: string }) {
         style={{
           position: 'relative', zIndex: 2, padding: '20px 0 28px',
           display: 'flex', alignItems: 'baseline',
-          borderTop: '1px solid rgba(245,242,237,0.15)', margin: '0 48px',
+          borderTop: '1px solid rgba(245,242,237,0.15)', margin: '0 48px', y: footerY,
         }}
       >
         <motion.div style={{ opacity: contentOpacity, display: 'flex', alignItems: 'baseline', width: '100%' }}>

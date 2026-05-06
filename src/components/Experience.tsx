@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import type { IconType } from 'react-icons';
 import {
   SiAnthropic, SiClaude, SiOpenai, SiGoogle, SiLangchain, SiGithubcopilot,
   SiGooglegemini, SiPython, SiTypescript, SiMilvus, SiOllama, SiCrewai,
   SiLangflow, SiReact, SiNextdotjs, SiTrpc, SiPrisma, SiPostgresql,
   SiRedis, SiRedhatopenshift, SiTerraform, SiNodedotjs, SiExpress,
-  SiKubernetes, SiDocker, SiCloudfoundry, SiSap,
+  SiKubernetes, SiDocker, SiCloudfoundry, SiSap, SiGooglecloud, SiMongodb,
+  SiGithubactions, SiFastapi, SiHelm, SiOkta, SiPytest,
 } from 'react-icons/si';
 
 const jobs = [
@@ -13,21 +15,24 @@ const jobs = [
     year: '2026 —',
     role: 'agentic ai engineer',
     org: 'kyndryl · dallas',
-    desc: 'building autonomous agents that think, plan, and ship — from prototype to production across enterprise.',
+    desc: 'designing and productionizing agentic ai systems: llm orchestration, tool use, retrieval, evals, and cloud-native delivery for regulated enterprises.',
     projects: [
-      'designing multi-agent architectures that orchestrate across tools, apis, and knowledge bases. agents that don\'t just answer — they act.',
-      'evaluating and integrating the full model landscape. picking the right brain for the right job.',
+      'designed agent workflows that connect llms to apis, data stores, dashboards, and operational tools, turning natural-language requests into grounded actions and surfaced insights.',
+      'built production prompt catalogs, model-provider wiring, and tool contracts across google adk, gemini/vertex ai, mcp-style tools, and service apis.',
+      'advanced reusable platform capabilities: async orchestration runtime, agent service run-loop refactors, fixed-argument workflows across five repos, and cleaner fastapi route boundaries.',
+      'grounded ai systems in enterprise data: secure ingestion, managed database/search retrieval, mainframe data movement, and dataset-specific query hardening.',
+      'owned the production envelope: okta/oidc auth, helm/gke/cloud build rollouts, github actions ci with lint/tests/secret scanning, docker image handoffs, mentoring, and engineer interviews.',
     ],
-    tech: ['anthropic claude', 'openai codex', 'google agent adk', 'langchain', 'crew ai', 'mcp', 'github copilot', 'claude code', 'cline', 'gemini', 'python', 'typescript', 'milvus', 'chromadb'],
+    tech: ['anthropic claude', 'openai codex', 'google agent adk', 'gemini', 'vertex ai', 'python', 'typescript', 'react', 'next.js', 'fastapi', 'gcp', 'gke', 'cloud build', 'mongodb atlas', 'github actions', 'pytest', 'playwright', 'docker', 'helm', 'okta', 'langchain', 'mcp'],
   },
   {
     year: '2024 — 26',
     role: 'senior developer & ai csm',
     org: 'ibm ai/data · denver',
-    desc: 'workshops, hackathons, pilot builds — turning client "what if" into production ai.',
+    desc: 'led hands-on ai workshops, pilots, and production builds: the bridge between client ideas and systems people could actually use.',
     projects: [
-      'shipped multi-agent system for a government org. one agent handles employee policy, another serves constituents, third routes IT tickets. rag + milvus + servicenow mcp. all in production.',
-      'built event-driven dropped call detection for a contact center platform. agent spots abandoned conversations and triggers live agent recovery in real-time.',
+      'shipped a multi-agent assistant for a public-sector organization, splitting employee policy, constituent support, and IT ticket routing across specialized agents.',
+      'built event-driven dropped-call detection for a contact center platform, surfacing abandoned conversations fast enough for live agent recovery.',
     ],
     tech: ['watson orchestrate', 'watsonx.ai', 'granite', 'milvus', 'langflow', 'anthropic mcp', 'llama'],
   },
@@ -35,12 +40,12 @@ const jobs = [
     year: '2020 — 24',
     role: 'senior developer, cloud expert labs',
     org: 'ibm · san francisco',
-    desc: 'health-tech, chaos engineering, blockchain prototypes — whatever the client needed, built to spec.',
+    desc: 'delivered high-trust client systems across health tech, retail, resilience engineering, and secure data products.',
     projects: [
-      'rewired how drug-trial adjudication works for health professionals. the system that decides who qualifies, faster.',
-      'advised a team in mexico on chaos engineering — how to break things on purpose so production doesn\'t.',
-      'built a kpi dashboard for a retail org in mexico. real-time performance tracking from zero.',
-      'prototyped a secure personal data vault on blockchain. nestjs + typescript.',
+      'modernized drug-trial adjudication workflows for health professionals, making qualification review faster and easier to reason about.',
+      'coached an engineering team on chaos practices: controlled failure drills, production resilience, and the muscle memory to recover cleanly.',
+      'built a real-time retail kpi dashboard from zero, turning scattered operating data into something leaders could scan and act on.',
+      'prototyped a secure personal data vault with blockchain-backed ownership patterns using nestjs + typescript.',
     ],
     tech: ['react', 'next.js', 'trpc', 'prisma', 'postgres', 'redis', 'openshift', 'terraform'],
   },
@@ -48,14 +53,14 @@ const jobs = [
     year: '2015 — 20',
     role: 'jr → senior developer, cloud garage',
     org: 'ibm · san francisco',
-    desc: 'five years building the garage from the inside — client delivery, design workshops, and launching new cities.',
+    desc: 'grew from junior to senior while helping shape cloud garage delivery: client builds, design workshops, and new-market launches.',
     projects: [
-      'ripped out an on-prem monolith for a university, rebuilt as kubernetes microservices. ran the design workshops to get there.',
-      're-architected a corporate discount platform from monolith to cloud. tdd culture from day one.',
-      'launched garage consulting practices in dubai and são paulo. built the delivery frameworks from scratch.',
-      'watson image recognition for a fashion startup — identifies clothing from photos and recommends where to buy it.',
-      'hr chatbot for an insurance org. automated employee inquiries so hr could breathe.',
-      'iot supply chain — real-time dashboard with socket.io and mqtt. track everything, everywhere.',
+      'led design workshops and helped replace a university monolith with kubernetes-based microservices.',
+      're-architected a corporate discount platform from monolith to cloud, pairing delivery speed with a test-driven engineering culture.',
+      'helped launch garage consulting practices in dubai and sao paulo, turning repeatable delivery habits into new local teams.',
+      'built a watson image-recognition prototype that identified clothing from photos and suggested where to buy similar pieces.',
+      'delivered an hr chatbot for an insurance organization, reducing repetitive employee inquiries and freeing the team for higher-touch work.',
+      'built an iot supply-chain dashboard with socket.io and mqtt for real-time tracking across moving parts.',
     ],
     tech: ['react', 'node', 'express', 'kubernetes', 'docker', 'watson', 'cloudant', 'cloud foundry'],
   },
@@ -63,7 +68,7 @@ const jobs = [
     year: '2012 — 15',
     role: 'sap master data analyst',
     org: 'leprino foods · denver',
-    desc: 'deployed master data across three manufacturing plants. migration, validation, governance — the unglamorous backbone work.',
+    desc: 'owned the data backbone for manufacturing rollouts: migration, validation, governance, and the details that keep plants moving.',
     projects: [],
     tech: ['sap', 'erp', 'data governance'],
   },
@@ -71,7 +76,7 @@ const jobs = [
     year: '2009 — 12',
     role: 'portfolio accountant',
     org: 'alp funds · denver',
-    desc: 'reconciled cash funds and asset securities — equities, bonds, swaps, options, fx, mortgages, futures. all of it.',
+    desc: 'reconciled cash, securities, and derivatives across complex portfolios, building the financial rigor that still shows up in my engineering.',
     projects: [],
     tech: ['risk modeling', 'securities'],
   },
@@ -100,6 +105,16 @@ const techIcons: Record<string, { icon: IconType; color?: string }> = {
   'redis':            { icon: SiRedis, color: '#FF4438' },
   'openshift':        { icon: SiRedhatopenshift, color: '#EE0000' },
   'terraform':        { icon: SiTerraform, color: '#844FBA' },
+  'fastapi':          { icon: SiFastapi, color: '#009688' },
+  'gcp':              { icon: SiGooglecloud, color: '#4285F4' },
+  'gke':              { icon: SiKubernetes, color: '#326CE5' },
+  'vertex ai':        { icon: SiGooglecloud, color: '#4285F4' },
+  'cloud build':      { icon: SiGooglecloud, color: '#4285F4' },
+  'mongodb atlas':    { icon: SiMongodb, color: '#47A248' },
+  'github actions':   { icon: SiGithubactions, color: '#2088FF' },
+  'pytest':           { icon: SiPytest, color: '#0A9EDC' },
+  'helm':             { icon: SiHelm, color: '#0F1689' },
+  'okta':             { icon: SiOkta, color: '#00297A' },
   'node':             { icon: SiNodedotjs, color: '#5FA04E' },
   'express':          { icon: SiExpress, color: '#EEEEEE' },
   'kubernetes':       { icon: SiKubernetes, color: '#326CE5' },
@@ -109,16 +124,21 @@ const techIcons: Record<string, { icon: IconType; color?: string }> = {
 };
 
 export default function Experience() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '16%']);
+  const bgX = useTransform(scrollYProgress, [0, 1], ['5%', '-4%']);
+
   return (
-    <div id="experience" data-section="experience" style={{
+    <div ref={ref} id="experience" data-section="experience" style={{
       background: '#1a1a1a', color: '#d4cbbf', padding: '80px 48px', position: 'relative',
     }}>
-      <div style={{
+      <motion.div style={{
         fontSize: '180px', fontWeight: 800, textTransform: 'lowercase' as const,
         lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(212,203,191,0.03)',
         position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '10px', right: '48px',
-      }}>exp</div>
+        top: '10px', right: '48px', y: bgY, x: bgX,
+      }}>exp</motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -158,15 +178,17 @@ export default function Experience() {
 
           {/* Project bullets */}
           {job.projects.length > 0 && (
-            <div data-exp="projects" style={{ marginTop: '14px', marginLeft: '142px', maxWidth: '520px' }}>
+            <ul data-exp="projects" style={{
+              marginTop: '14px', marginLeft: '158px', maxWidth: '560px',
+              display: 'grid', gap: '8px', paddingLeft: '16px',
+            }}>
               {job.projects.map((p, j) => (
-                <div key={j} style={{
+                <li key={j} style={{
                   fontSize: '12px', fontWeight: 300, lineHeight: 1.6,
-                  opacity: 0.35, marginBottom: '8px', paddingLeft: '14px',
-                  borderLeft: '1px solid rgba(212,203,191,0.1)',
-                }}>{p}</div>
+                  opacity: 0.46, paddingLeft: '2px',
+                }}>{p}</li>
               ))}
-            </div>
+            </ul>
           )}
 
           {/* Tech tags */}

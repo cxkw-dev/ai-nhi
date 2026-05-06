@@ -1,20 +1,27 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function Contact() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-24%', '8%']);
+  const headingY = useTransform(scrollYProgress, [0, 1], ['10%', '0%']);
+
   return (
-    <div id="contact" data-section="contact" style={{ padding: '100px 48px 60px', position: 'relative' }}>
-      <div data-contact="bg" style={{
+    <div ref={ref} id="contact" data-section="contact" style={{ padding: '100px 48px 60px', position: 'relative', overflow: 'hidden' }}>
+      <motion.div data-contact="bg" style={{
         fontSize: '140px', fontWeight: 800, textTransform: 'lowercase' as const,
         lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(26,26,26,0.04)',
         position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '20px', left: '48px',
-      }}>connect</div>
+        top: '20px', left: '48px', y: bgY,
+      }}>connect</motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8 }}
+        style={{ y: headingY }}
       >
         <h2 data-contact="heading" style={{
           fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',

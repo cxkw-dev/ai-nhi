@@ -214,4 +214,21 @@ img { display: block; }
     height: 300px !important;
   }
 
+  [data-parallax="label"] {
+    left: 20px !important;
+    bottom: 28px !important;
+  }
+
+  [data-parallax="label"] > div:first-child {
+    font-size: 9px !important;
+  }
+
+  [data-parallax="label"] > div:last-child {
+    font-size: 44px !important;
+  }
+
+  [data-parallax="line"] {
+    display: none !important;
+  }
+
 }

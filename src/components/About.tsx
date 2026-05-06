@@ -4,7 +4,8 @@ import { useRef } from 'react';
 export default function About({ base = '' }: { base?: string }) {
   const imgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: imgRef, offset: ['start end', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['3%', '-3%']);
+  const imgY = useTransform(scrollYProgress, [0, 1], ['9%', '-9%']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
 
   const fade = {
     initial: { opacity: 0 },
@@ -17,12 +18,12 @@ export default function About({ base = '' }: { base?: string }) {
     <div id="about" data-section="about" style={{
       position: 'relative', display: 'flex', minHeight: '550px', overflow: 'hidden',
     }}>
-      <div style={{
+      <motion.div style={{
         fontSize: '180px', fontWeight: 800, textTransform: 'lowercase' as const,
         lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(26,26,26,0.04)',
         position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '10px', left: '-10px',
-      }}>about</div>
+        top: '10px', left: '-10px', y: bgY,
+      }}>about</motion.div>
 
       <div data-about="text" style={{
         width: '55%', padding: '80px 48px', position: 'relative', zIndex: 2,
@@ -76,7 +77,7 @@ export default function About({ base = '' }: { base?: string }) {
           src={`${base}/assets/images/cafe-portrait.jpg`}
           alt=""
           style={{
-            position: 'absolute', inset: 0, width: '100%', height: '110%',
+            position: 'absolute', top: '-12%', left: 0, width: '100%', height: '124%',
             objectFit: 'cover', objectPosition: 'center 15%',
             filter: 'sepia(25%) saturate(60%) brightness(85%) contrast(100%) hue-rotate(-5deg)',
             y: imgY,

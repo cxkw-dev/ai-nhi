@@ -47,7 +47,8 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.02, 1.08]);
 
   return (
     <div
@@ -67,20 +68,26 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
         src={`${base}/assets/images/${img}`}
         alt=""
         style={{
-          position: 'absolute', width: '100%', height: '120%', objectFit: 'cover', objectPosition: pos, y,
+          position: 'absolute', width: '100%', height: '128%', objectFit: 'cover', objectPosition: pos, y, scale,
         }}
       />
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'rgba(26, 26, 26, 0.75)', pointerEvents: 'none',
+        background: 'rgba(26, 26, 26, 0.62)', pointerEvents: 'none',
       }} />
     </div>
   );
 }
 
 export default function Travel({ base = '' }: { base?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const cityY = useTransform(scrollYProgress, [0, 1], ['-2%', '4%']);
+  const cityX = useTransform(scrollYProgress, [0, 1], ['-2%', '2%']);
+  const storyY = useTransform(scrollYProgress, [0, 1], ['18%', '-18%']);
+
   return (
-    <div data-section="travel" style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
+    <div ref={ref} data-section="travel" style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
       {/* Layered photos — 2x2 grid, no gaps */}
       <div data-travel="photos" style={{
         position: 'absolute', inset: 0, zIndex: 1,
@@ -97,7 +104,7 @@ export default function Travel({ base = '' }: { base?: string }) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 1 }}
-        style={{ position: 'absolute', zIndex: 3, top: '120px', right: '48px', width: '280px' }}
+        style={{ position: 'absolute', zIndex: 3, top: '120px', right: '48px', width: '280px', y: storyY }}
       >
         <div style={{ fontSize: '11px', letterSpacing: '3px', textTransform: 'lowercase' as const, color: 'rgba(245,242,237,0.5)', marginBottom: '24px' }}>places that shaped me</div>
         <p style={{ fontSize: '14px', lineHeight: 1.75, fontWeight: 300, color: '#d4cbbf' }}>
@@ -106,8 +113,9 @@ export default function Travel({ base = '' }: { base?: string }) {
       </motion.div>
 
       {/* City names — simple fade in */}
-      <div data-travel="cities" style={{
+      <motion.div data-travel="cities" style={{
         position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', padding: '80px 0',
+        y: cityY, x: cityX,
       }}>
         {cities.map((city) => (
           <motion.div
@@ -125,7 +133,7 @@ export default function Travel({ base = '' }: { base?: string }) {
             {city.name}
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
