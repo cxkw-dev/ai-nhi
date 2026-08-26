@@ -1,5 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
 import {
   SiAnthropic, SiClaude, SiOpenai, SiGoogle, SiLangchain, SiGithubcopilot,
@@ -82,161 +81,137 @@ const jobs = [
   },
 ];
 
-const techIcons: Record<string, { icon: IconType; color?: string }> = {
-  'anthropic claude': { icon: SiAnthropic, color: '#D97757' },
-  'openai codex':     { icon: SiOpenai, color: '#412991' },
-  'google agent adk': { icon: SiGoogle, color: '#4285F4' },
-  'langchain':        { icon: SiLangchain, color: '#7FC8FF' },
-  'crew ai':          { icon: SiCrewai, color: '#FF5A50' },
-  'github copilot':   { icon: SiGithubcopilot, color: '#6cc644' },
-  'claude code':      { icon: SiClaude, color: '#D97757' },
-  'gemini':           { icon: SiGooglegemini, color: '#8E75B2' },
-  'python':           { icon: SiPython, color: '#3776AB' },
-  'typescript':       { icon: SiTypescript, color: '#3178C6' },
-  'milvus':           { icon: SiMilvus, color: '#00A1EA' },
-  'anthropic mcp':    { icon: SiAnthropic, color: '#D97757' },
-  'llama':            { icon: SiOllama, color: '#EEEEEE' },
-  'langflow':         { icon: SiLangflow, color: '#FF6E42' },
-  'react':            { icon: SiReact, color: '#61DAFB' },
-  'next.js':          { icon: SiNextdotjs, color: '#EEEEEE' },
-  'trpc':             { icon: SiTrpc, color: '#2596BE' },
-  'prisma':           { icon: SiPrisma, color: '#5A67D8' },
-  'postgres':         { icon: SiPostgresql, color: '#4169E1' },
-  'redis':            { icon: SiRedis, color: '#FF4438' },
-  'openshift':        { icon: SiRedhatopenshift, color: '#EE0000' },
-  'terraform':        { icon: SiTerraform, color: '#844FBA' },
-  'fastapi':          { icon: SiFastapi, color: '#009688' },
-  'gcp':              { icon: SiGooglecloud, color: '#4285F4' },
-  'gke':              { icon: SiKubernetes, color: '#326CE5' },
-  'vertex ai':        { icon: SiGooglecloud, color: '#4285F4' },
-  'cloud build':      { icon: SiGooglecloud, color: '#4285F4' },
-  'mongodb atlas':    { icon: SiMongodb, color: '#47A248' },
-  'github actions':   { icon: SiGithubactions, color: '#2088FF' },
-  'pytest':           { icon: SiPytest, color: '#0A9EDC' },
-  'helm':             { icon: SiHelm, color: '#0F1689' },
-  'okta':             { icon: SiOkta, color: '#00297A' },
-  'node':             { icon: SiNodedotjs, color: '#5FA04E' },
-  'express':          { icon: SiExpress, color: '#EEEEEE' },
-  'kubernetes':       { icon: SiKubernetes, color: '#326CE5' },
-  'docker':           { icon: SiDocker, color: '#2496ED' },
-  'cloud foundry':    { icon: SiCloudfoundry, color: '#0C9ED5' },
-  'sap':              { icon: SiSap, color: '#0FAAFF' },
+const techIcons: Record<string, { icon: IconType }> = {
+  'anthropic claude': { icon: SiAnthropic },
+  'openai codex':     { icon: SiOpenai },
+  'google agent adk': { icon: SiGoogle },
+  'langchain':        { icon: SiLangchain },
+  'crew ai':          { icon: SiCrewai },
+  'github copilot':   { icon: SiGithubcopilot },
+  'claude code':      { icon: SiClaude },
+  'gemini':           { icon: SiGooglegemini },
+  'python':           { icon: SiPython },
+  'typescript':       { icon: SiTypescript },
+  'milvus':           { icon: SiMilvus },
+  'anthropic mcp':    { icon: SiAnthropic },
+  'llama':            { icon: SiOllama },
+  'langflow':         { icon: SiLangflow },
+  'react':            { icon: SiReact },
+  'next.js':          { icon: SiNextdotjs },
+  'trpc':             { icon: SiTrpc },
+  'prisma':           { icon: SiPrisma },
+  'postgres':         { icon: SiPostgresql },
+  'redis':            { icon: SiRedis },
+  'openshift':        { icon: SiRedhatopenshift },
+  'terraform':        { icon: SiTerraform },
+  'fastapi':          { icon: SiFastapi },
+  'gcp':              { icon: SiGooglecloud },
+  'gke':              { icon: SiKubernetes },
+  'vertex ai':        { icon: SiGooglecloud },
+  'cloud build':      { icon: SiGooglecloud },
+  'mongodb atlas':    { icon: SiMongodb },
+  'github actions':   { icon: SiGithubactions },
+  'pytest':           { icon: SiPytest },
+  'helm':             { icon: SiHelm },
+  'okta':             { icon: SiOkta },
+  'node':             { icon: SiNodedotjs },
+  'express':          { icon: SiExpress },
+  'kubernetes':       { icon: SiKubernetes },
+  'docker':           { icon: SiDocker },
+  'cloud foundry':    { icon: SiCloudfoundry },
+  'sap':              { icon: SiSap },
+};
+
+
+const education = [
+  { year: '2005 — 09', school: 'university of colorado, boulder', detail: 'finance & info systems' },
+  { year: '2013 — 15', school: 'galvanize · davinci coders', detail: 'full-stack development' },
+];
+
+const fade = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true, margin: '-40px' as const },
 };
 
 export default function Experience() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '16%']);
-  const bgX = useTransform(scrollYProgress, [0, 1], ['5%', '-4%']);
-
   return (
-    <div ref={ref} id="experience" data-section="experience" style={{
-      background: '#1a1a1a', color: '#d4cbbf', padding: '80px 48px', position: 'relative',
+    <section id="experience" data-section="experience" style={{
+      background: 'var(--forest-deep)', color: 'var(--bone)',
+      padding: '120px var(--edge)', position: 'relative',
     }}>
-      <motion.div style={{
-        fontSize: '180px', fontWeight: 800, textTransform: 'lowercase' as const,
-        lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(212,203,191,0.03)',
-        position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '10px', right: '48px', y: bgY, x: bgX,
-      }}>exp</motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        style={{ marginBottom: '48px' }}
-      >
-        <h2 style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '3px', textTransform: 'lowercase' as const }}>experience</h2>
+      <motion.div {...fade} transition={{ duration: 0.8 }} className="t-label" style={{ opacity: 0.45 }}>
+        03 — experience
       </motion.div>
 
-      {jobs.map((job, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-20px' }}
-          transition={{ duration: 0.6 }}
-          style={{ padding: '28px 0', borderTop: '1px solid rgba(212,203,191,0.08)' }}
-        >
-          {/* Header row */}
-          <div data-exp="header" style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
-            <div style={{
-              fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-              fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,
-            }}>{job.year}</div>
-            <div style={{ fontSize: '15px', fontWeight: 500 }}>{job.role}</div>
-            <div style={{ fontSize: '13px', fontWeight: 300, opacity: 0.35, marginLeft: 'auto' }}>{job.org}</div>
-          </div>
+      <div style={{ marginTop: '52px' }}>
+        {jobs.map((job, i) => (
+          <motion.div
+            key={i}
+            {...fade}
+            transition={{ duration: 0.7 }}
+            style={{ padding: '30px 0', borderTop: '1px solid rgba(237,230,211,0.12)' }}
+          >
+            <div data-exp="header" style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
+              <div className="t-label" style={{ width: '110px', flexShrink: 0, opacity: 0.4 }}>{job.year}</div>
+              <div style={{ fontSize: '16px', fontWeight: 400 }}>{job.role}</div>
+              <div className="t-label" style={{ marginLeft: 'auto', opacity: 0.4 }}>{job.org}</div>
+            </div>
 
-          {/* Summary */}
-          <div data-exp="desc" style={{
-            marginTop: '10px', marginLeft: '142px',
-            fontSize: '13px', fontWeight: 300, lineHeight: 1.6, opacity: 0.5,
-            maxWidth: '520px',
-          }}>{job.desc}</div>
+            <div data-exp="desc" style={{
+              marginTop: '12px', marginLeft: '142px', maxWidth: '560px',
+              fontSize: '13.5px', lineHeight: 1.75, opacity: 0.55,
+            }}>{job.desc}</div>
 
-          {/* Project bullets */}
-          {job.projects.length > 0 && (
-            <ul data-exp="projects" style={{
-              marginTop: '14px', marginLeft: '158px', maxWidth: '560px',
-              display: 'grid', gap: '8px', paddingLeft: '16px',
+            {job.projects.length > 0 && (
+              <ul data-exp="projects" style={{
+                marginTop: '16px', marginLeft: '158px', maxWidth: '600px',
+                display: 'grid', gap: '9px', paddingLeft: '16px',
+              }}>
+                {job.projects.map((p, j) => (
+                  <li key={j} style={{ fontSize: '12.5px', lineHeight: 1.7, opacity: 0.42 }}>{p}</li>
+                ))}
+              </ul>
+            )}
+
+            <div data-exp="tech" style={{
+              marginTop: '16px', marginLeft: '142px',
+              display: 'flex', flexWrap: 'wrap' as const, gap: '6px',
             }}>
-              {job.projects.map((p, j) => (
-                <li key={j} style={{
-                  fontSize: '12px', fontWeight: 300, lineHeight: 1.6,
-                  opacity: 0.46, paddingLeft: '2px',
-                }}>{p}</li>
-              ))}
-            </ul>
-          )}
-
-          {/* Tech tags */}
-          <div data-exp="tech" style={{
-            marginTop: '12px', marginLeft: '142px',
-            display: 'flex', flexWrap: 'wrap' as const, gap: '6px',
-          }}>
-            {job.tech.map((t) => {
-              const entry = techIcons[t];
-              return (
-                <span key={t} style={{
-                  fontSize: '9px', letterSpacing: '1px', textTransform: 'lowercase' as const,
-                  padding: '2px 8px', border: '1px solid rgba(212,203,191,0.1)',
-                  borderRadius: '2px', color: 'rgba(212,203,191,0.35)',
-                  display: 'inline-flex', alignItems: 'center', gap: '5px',
-                }}>
-                  {entry && <entry.icon style={{ fontSize: '11px', color: entry.color }} />}
-                  {t}
-                </span>
-              );
-            })}
-          </div>
-        </motion.div>
-      ))}
-
-      {/* Education - subtle at the bottom */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        style={{ marginTop: '48px', paddingTop: '28px', borderTop: '1px solid rgba(212,203,191,0.08)' }}
-      >
-        <div style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '3px', textTransform: 'lowercase' as const, marginBottom: '24px' }}>education</div>
-        {[
-          { year: '2005 — 09', school: 'university of colorado, boulder', detail: 'finance & info systems' },
-          { year: '2013 — 15', school: 'galvanize · davinci coders', detail: 'full-stack development' },
-        ].map((edu, i) => (
-          <div key={i} data-exp="header" style={{ display: 'flex', gap: '32px', padding: '12px 0', alignItems: 'baseline' }}>
-            <div style={{
-              fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-              fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,
-            }}>{edu.year}</div>
-            <div style={{ fontSize: '15px', fontWeight: 500 }}>{edu.school}</div>
-            <div style={{ fontSize: '13px', fontWeight: 300, opacity: 0.35, marginLeft: 'auto' }}>{edu.detail}</div>
-          </div>
+              {job.tech.map((t) => {
+                const entry = techIcons[t];
+                return (
+                  <span key={t} style={{
+                    fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase' as const,
+                    padding: '3px 9px', border: '1px solid rgba(237,230,211,0.16)',
+                    color: 'rgba(237,230,211,0.42)',
+                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  }}>
+                    {entry && <entry.icon style={{ fontSize: '11px' }} />}
+                    {t}
+                  </span>
+                );
+              })}
+            </div>
+          </motion.div>
         ))}
+      </div>
+
+      <motion.div {...fade} transition={{ duration: 0.7 }} style={{ marginTop: '64px' }}>
+        <div className="t-label" style={{ opacity: 0.45 }}>education</div>
+        <div style={{ marginTop: '26px' }}>
+          {education.map((edu, i) => (
+            <div key={i} data-exp="header" style={{
+              display: 'flex', gap: '32px', alignItems: 'baseline',
+              padding: '18px 0', borderTop: '1px solid rgba(237,230,211,0.12)',
+            }}>
+              <div className="t-label" style={{ width: '110px', flexShrink: 0, opacity: 0.4 }}>{edu.year}</div>
+              <div style={{ fontSize: '16px', fontWeight: 400 }}>{edu.school}</div>
+              <div className="t-label" style={{ marginLeft: 'auto', opacity: 0.4 }}>{edu.detail}</div>
+            </div>
+          ))}
+        </div>
       </motion.div>
-    </div>
+    </section>
   );
 }

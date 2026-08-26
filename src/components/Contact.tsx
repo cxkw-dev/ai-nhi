@@ -1,59 +1,74 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import ArchedText from './ArchedText';
+
+const links = [
+  { label: 'github', href: 'https://github.com/cxkw-dev' },
+  { label: 'linkedin', href: 'https://www.linkedin.com/in/andynhi' },
+];
 
 export default function Contact() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-24%', '8%']);
-  const headingY = useTransform(scrollYProgress, [0, 1], ['10%', '0%']);
+  const fade = {
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    viewport: { once: true, margin: '-60px' as const },
+  };
 
   return (
-    <div ref={ref} id="contact" data-section="contact" style={{ padding: '100px 48px 60px', position: 'relative', overflow: 'hidden' }}>
-      <motion.div data-contact="bg" style={{
-        fontSize: '140px', fontWeight: 800, textTransform: 'lowercase' as const,
-        lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(26,26,26,0.04)',
-        position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '20px', left: '48px', y: bgY,
-      }}>connect</motion.div>
-
+    <footer id="contact" data-section="contact" style={{
+      background: 'var(--bone)', color: 'var(--forest)',
+      padding: '140px var(--edge) 92px', position: 'relative', overflow: 'hidden',
+    }}>
+      {/* faint bookend of the hero back-print */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.8 }}
-        style={{ y: headingY }}
+        data-contact="mark"
+        {...fade} transition={{ duration: 1.4 }}
+        style={{
+          position: 'absolute', right: 'calc(var(--edge) - 40px)', top: '150px',
+          width: 'min(520px, 42vw)', opacity: 0.08, pointerEvents: 'none',
+        }}
       >
-        <h2 data-contact="heading" style={{
-          fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-          fontSize: '56px', fontWeight: 400, lineHeight: 1.1, marginBottom: '16px',
-        }}>let's build<br />something</h2>
+        <ArchedText id="contact-arch" text="nocturnal" />
+      </motion.div>
 
-        <p style={{ fontSize: '14px', fontWeight: 300, color: '#888', maxWidth: '380px', lineHeight: 1.6 }}>
-          always down to talk ai, dig through crates, or plan the next trip.
-        </p>
+      <motion.div {...fade} transition={{ duration: 0.8 }} className="t-label" style={{ opacity: 0.45 }}>
+        05 — connect
+      </motion.div>
 
-        <div style={{ display: 'flex', gap: '24px', marginTop: '32px' }}>
-          {[
-            { label: 'github', href: 'https://github.com/cxkw-dev' },
-            { label: 'linkedin', href: 'https://www.linkedin.com/in/andynhi' },
-          ].map((link) => (
-            <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
-              display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px',
-              textTransform: 'lowercase' as const, textDecoration: 'underline', textUnderlineOffset: '3px',
-              color: '#1a1a1a',
-            }}>[&nbsp;&nbsp;{link.label}&nbsp;&nbsp;]</a>
-          ))}
-        </div>
+      <motion.h2
+        {...fade} transition={{ duration: 0.9, delay: 0.08 }}
+        data-contact="heading"
+        className="t-serif"
+        style={{
+          fontStyle: 'italic', fontSize: '58px', fontWeight: 400,
+          lineHeight: 1.06, margin: '28px 0 18px',
+        }}
+      >let's build<br />something</motion.h2>
+
+      <motion.p {...fade} transition={{ duration: 0.9, delay: 0.14 }} style={{
+        fontSize: '15px', lineHeight: 1.8, opacity: 0.65, maxWidth: '380px',
+      }}>
+        always down to talk ai, dig through crates, or plan the next trip.
+      </motion.p>
+
+      <motion.div {...fade} transition={{ duration: 0.9, delay: 0.2 }} style={{
+        display: 'flex', gap: '28px', marginTop: '38px',
+      }}>
+        {links.map((link) => (
+          <a key={link.label} className="link" href={link.href} target="_blank" rel="noopener noreferrer">
+            {link.label}
+          </a>
+        ))}
       </motion.div>
 
       <div data-contact="footer" style={{
-        marginTop: '80px', paddingTop: '20px',
-        borderTop: '1px solid rgba(26,26,26,0.1)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+        marginTop: '110px', paddingTop: '22px',
+        borderTop: '1px solid rgba(47,74,51,0.14)',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '16px',
       }}>
-        <div style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '18px' }}>andy nguyen</div>
-        <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#aaa' }}>© 2026</div>
+        <span className="t-club" style={{ fontSize: '13px' }}>nocturnal club</span>
+        <span className="t-label" style={{ opacity: 0.4 }}>andy nguyen</span>
+        <span className="t-label" style={{ opacity: 0.4, marginRight: '52px' }}>© 2026</span>
       </div>
-    </div>
+    </footer>
   );
 }

@@ -1,139 +1,215 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Libre+Barcode+39+Text&family=Outfit:wght@300;400;500;700;800&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #f5f2ed; color: #1a1a1a; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-@media (pointer: fine) { *, a, button { cursor: none !important; } }
-img { display: block; }
-.warm { filter: sepia(15%) saturate(80%) brightness(95%) contrast(95%); }
-.warm-dark { filter: sepia(15%) saturate(75%) brightness(90%) contrast(105%); }
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Great+Vibes&family=Instrument+Serif:ital@0;1&family=Outfit:wght@200;300;400;500;600;700&display=swap');
 
 /* =========================================================
-   mobile responsive — under 768px
-   !important is needed throughout because components use
-   inline React styles which have highest specificity.
+   nocturnal — palette
+   two colours only: bone + forest. everything else is an
+   opacity of one of them.
+   ========================================================= */
+
+:root {
+  --bone:        #ede6d3;
+  --bone-soft:   #e2dac2;
+  --bone-deep:   #d5cbb0;
+
+  --forest:      #2f4a33;
+  --forest-deep: #1e3223;
+  --forest-mid:  #4e6a52;
+
+  --ink:         var(--forest);
+  --paper:       var(--bone);
+
+  --edge:        56px;   /* page gutter */
+  --edge-sm:     22px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (pointer: fine) { *, a, button { cursor: none !important; } }
+
+img { display: block; }
+
+::selection { background: var(--forest); color: var(--bone); }
+
+/* =========================================================
+   duotone — every photo on the site collapses to the two
+   brand colours. grayscale first, then floor the shadows at
+   forest and ceiling the highlights at bone.
+   ========================================================= */
+
+.duo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.duo > img,
+.duo > .duo-img {
+  filter: grayscale(100%) contrast(108%) brightness(104%)
+          sepia(55%) hue-rotate(58deg) saturate(140%);
+}
+
+.duo::before,
+.duo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* highlights → bone */
+.duo::before {
+  background: var(--bone);
+  mix-blend-mode: multiply;
+}
+
+/* shadows → forest */
+.duo::after {
+  background: var(--forest);
+  mix-blend-mode: lighten;
+}
+
+/* inverted variant — for sections sitting on forest */
+.duo-invert::before { background: var(--bone-deep); }
+.duo-invert::after  { background: var(--forest-deep); }
+
+/* =========================================================
+   type
+   ========================================================= */
+
+.t-arch  { font-family: 'Archivo Black', 'Outfit', sans-serif; }
+.t-serif { font-family: 'Instrument Serif', Georgia, serif; }
+.t-script{ font-family: 'Great Vibes', 'Instrument Serif', cursive; }
+
+/* small letterspaced caps — the "STYNVOCLUB" line */
+.t-club {
+  font-family: 'Instrument Serif', Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+/* the ui label used above every section */
+.t-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+a { color: inherit; }
+
+.link {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+}
+.link:hover { opacity: 1; }
+
+hr, .rule {
+  border: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.16;
+}
+
+/* =========================================================
+   mobile — under 768px
+   inline react styles win on specificity, hence !important.
    ========================================================= */
 
 @media (max-width: 767px) {
 
+  :root { --edge: var(--edge-sm); }
+
   /* --- nav ------------------------------------------------ */
 
-  /* hide vertical name on the left edge — eats too much space */
-  [data-nav="vertical-name"] {
-    display: none !important;
+  [data-nav="bar"] {
+    padding: 14px 22px !important;
   }
 
-  /* shrink nav link padding, keep top-right */
+  [data-nav="mark"] { font-size: 13px !important; }
+
   [data-nav="links"] {
-    padding: 16px 20px !important;
+    gap: 16px !important;
+    font-size: 9px !important;
   }
-
-  [data-nav="links"] > div {
-    gap: 18px !important;
-    font-size: 10px !important;
-  }
-
 
   /* --- hero ----------------------------------------------- */
 
   [data-section="hero"] {
-    min-height: 100svh !important;
+    height: 100svh !important;
     min-height: 560px !important;
   }
 
-  /* hero bottom text block */
-  [data-hero="text"] {
-    padding: 0 20px 10px !important;
-  }
+  [data-hero="lockup"] { padding: 0 22px !important; }
 
-  [data-hero="text"] > div > div {
-    font-size: 22px !important;
-  }
+  [data-hero="arch"] { width: 108% !important; }
 
-  /* hero footer bar (andy nguyen / kyndryl / scroll) */
+  [data-hero="club"]  { font-size: 15px !important; }
+  [data-hero="motto"] { font-size: 9px !important; }
+
   [data-hero="footer"] {
-    margin: 0 20px !important;
-    padding: 14px 0 20px !important;
+    margin: 0 22px !important;
+    padding: 12px 0 18px !important;
+    font-size: 10px !important;
   }
-
-  [data-hero="footer"] span {
-    font-size: 12px !important;
-    margin-right: 16px !important;
-  }
-
+  [data-hero="footer"] > span:nth-child(2) { display: none !important; }
 
   /* --- about ---------------------------------------------- */
 
-  /* stack vertically: text on top, image below */
   [data-section="about"] {
     flex-direction: column !important;
-    min-height: auto !important;
+    padding: 72px 22px 0 !important;
+    gap: 0 !important;
   }
 
-  /* text column — full width */
-  [data-about="text"] {
-    width: 100% !important;
-    padding: 60px 20px 40px !important;
-  }
+  [data-about="text"]    { width: 100% !important; padding: 0 0 40px !important; }
+  [data-about="heading"] { font-size: 30px !important; }
+  [data-about="image"]   { width: 100% !important; height: 380px !important; }
+  [data-about="stats"]   { gap: 30px !important; }
 
-  /* shrink the big heading */
-  [data-about="heading"] {
-    font-size: 36px !important;
-    letter-spacing: -1px !important;
-  }
+  /* --- statement (cursive nocturnal) ---------------------- */
 
-  /* image column — full width, fixed height */
-  [data-about="image"] {
-    width: 100% !important;
-    height: 360px !important;
-  }
+  [data-section="statement"] { padding: 96px 22px !important; }
+  [data-statement="word"]    { font-size: 27vw !important; }
+  [data-statement="side"]    { display: none !important; }
 
-  /* about background watermark */
-  [data-section="about"] > div:first-child {
-    font-size: 90px !important;
-    letter-spacing: -4px !important;
-  }
+  /* --- break band ----------------------------------------- */
 
-  /* stats row */
-  [data-about="stats"] {
-    gap: 28px !important;
-  }
-
-  [data-about="stats"] > div > div:first-child {
-    font-size: 28px !important;
-  }
-
+  [data-section="break"] { height: 260px !important; }
+  [data-break="label"]   { left: 22px !important; right: 22px !important; bottom: 22px !important; }
 
   /* --- experience ----------------------------------------- */
 
-  [data-section="experience"] {
-    padding: 60px 20px !important;
-  }
+  [data-section="experience"] { padding: 72px 22px !important; }
 
-  /* background watermark */
-  [data-section="experience"] > div:first-child {
-    font-size: 90px !important;
-    letter-spacing: -4px !important;
-    right: 20px !important;
-  }
-
-  /* header rows: stack year / role / org vertically */
   [data-exp="header"] {
     flex-direction: column !important;
-    gap: 4px !important;
+    gap: 3px !important;
     align-items: flex-start !important;
   }
+  [data-exp="header"] > div:first-child { width: auto !important; }
+  [data-exp="header"] > div:last-child  { margin-left: 0 !important; }
 
-  /* org label — undo margin-left:auto so it sits naturally */
-  [data-exp="header"] > div:last-child {
-    margin-left: 0 !important;
-  }
-
-  /* year column — don't need fixed width on mobile */
-  [data-exp="header"] > div:first-child {
-    width: auto !important;
-  }
-
-  /* description, projects, tech — remove left indent */
   [data-exp="desc"],
   [data-exp="projects"],
   [data-exp="tech"] {
@@ -141,94 +217,37 @@ img { display: block; }
     max-width: 100% !important;
   }
 
-
   /* --- travel --------------------------------------------- */
 
-  [data-section="travel"] {
-    min-height: 1000px !important;
-  }
+  [data-section="travel"] { min-height: 940px !important; }
 
-  /* travel story — reposition to top of section, full width */
   [data-travel="story"] {
     position: relative !important;
     top: auto !important;
     right: auto !important;
     width: 100% !important;
-    padding: 24px 20px !important;
+    padding: 0 22px 8px !important;
     z-index: 4 !important;
   }
 
-  /* city names column — reduce top padding since story now flows above */
-  [data-travel="cities"] {
-    padding: 20px 0 60px !important;
-  }
-
-  /* city names — slightly smaller on small phones */
+  [data-travel="cities"] { padding: 28px 0 56px !important; }
   [data-travel="cities"] > div {
-    font-size: 11vw !important;
-    padding-left: 12px !important;
+    font-size: 12vw !important;
+    padding-left: 22px !important;
   }
-
-  /* diagonal photo stack — no overrides needed, layout is already column */
-
 
   /* --- contact -------------------------------------------- */
 
-  [data-section="contact"] {
-    padding: 60px 20px 40px !important;
-  }
-
-  [data-contact="heading"] {
-    font-size: 38px !important;
-  }
-
-  [data-contact="bg"] {
-    font-size: 80px !important;
-    letter-spacing: -4px !important;
-    left: 20px !important;
-  }
-
+  [data-section="contact"] { padding: 76px 22px 32px !important; }
+  [data-contact="heading"] { font-size: 34px !important; }
   [data-contact="footer"] {
-    margin-top: 48px !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
   }
-
 
   /* --- music player --------------------------------------- */
 
-  [data-section="music-player"] {
-    bottom: 16px !important;
-    right: 16px !important;
-  }
-
-  /* spotify embed container — narrower on mobile */
-  [data-section="music-player"] > div:first-of-type {
-    width: 260px !important;
-  }
-
-
-  /* --- parallax break ------------------------------------- */
-
-  [data-section="parallax-break"] {
-    height: 300px !important;
-  }
-
-  [data-parallax="label"] {
-    left: 20px !important;
-    bottom: 28px !important;
-  }
-
-  [data-parallax="label"] > div:first-child {
-    font-size: 9px !important;
-  }
-
-  [data-parallax="label"] > div:last-child {
-    font-size: 44px !important;
-  }
-
-  [data-parallax="line"] {
-    display: none !important;
-  }
-
+  [data-section="music-player"] { bottom: 16px !important; right: 16px !important; }
+  [data-music="embed"] { width: 254px !important; }
 }

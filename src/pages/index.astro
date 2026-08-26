@@ -5,6 +5,7 @@ import CustomCursor from '../components/CustomCursor';
 import ScrollProgress from '../components/ScrollProgress';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import Statement from '../components/Statement';
 import ParallaxBreak from '../components/ParallaxBreak';
 import Experience from '../components/Experience';
 import Travel from '../components/Travel';
@@ -20,6 +21,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <Nav client:load />
   <Hero client:load base={base} />
   <About client:load base={base} />
+  <Statement client:load />
   <ParallaxBreak client:load base={base} />
   <Experience client:load />
   <Travel client:load base={base} />

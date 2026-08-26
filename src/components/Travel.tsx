@@ -17,9 +17,9 @@ const cities: { name: string; style: 'bold' | 'outline' | 'ghost' }[] = [
 ];
 
 const cityColors = {
-  bold: { color: '#f5f2ed' },
-  outline: { WebkitTextStroke: '2px rgba(245,242,237,0.35)', color: 'transparent' },
-  ghost: { color: 'rgba(245,242,237,0.12)' },
+  bold:    { color: 'var(--bone)' },
+  outline: { WebkitTextStroke: '1.5px rgba(237,230,211,0.34)', color: 'transparent' },
+  ghost:   { color: 'rgba(237,230,211,0.11)' },
 };
 
 const SKEW = 6; // percentage offset from center for diagonal
@@ -47,12 +47,12 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.02, 1.08]);
+  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
   return (
     <div
       ref={ref}
+      className="duo duo-invert"
       style={{
         position: 'absolute',
         top: `${row * 50}%`,
@@ -60,20 +60,20 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
         width: `${MAX_W}%`,
         height: '50%',
         clipPath: getClipPath(side),
-        overflow: 'hidden',
       }}
     >
       <motion.img
-        className="warm"
         src={`${base}/assets/images/${img}`}
         alt=""
         style={{
-          position: 'absolute', width: '100%', height: '128%', objectFit: 'cover', objectPosition: pos, y, scale,
+          position: 'absolute', width: '100%', height: '124%',
+          objectFit: 'cover', objectPosition: pos, y,
         }}
       />
+      {/* sink the photographs so the city names can sit on top of them */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: 'rgba(26, 26, 26, 0.62)', pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+        background: 'rgba(30,50,35,0.72)',
       }} />
     </div>
   );
@@ -83,57 +83,61 @@ export default function Travel({ base = '' }: { base?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const cityY = useTransform(scrollYProgress, [0, 1], ['-2%', '4%']);
-  const cityX = useTransform(scrollYProgress, [0, 1], ['-2%', '2%']);
-  const storyY = useTransform(scrollYProgress, [0, 1], ['18%', '-18%']);
+  const storyY = useTransform(scrollYProgress, [0, 1], ['14%', '-14%']);
 
   return (
-    <div ref={ref} data-section="travel" style={{ position: 'relative', minHeight: '1260px', overflow: 'hidden', padding: 0 }}>
-      {/* Layered photos — 2x2 grid, no gaps */}
-      <div data-travel="photos" style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-      }}>
+    <section ref={ref} data-section="travel" style={{
+      position: 'relative', minHeight: '1220px', overflow: 'hidden',
+      background: 'var(--forest-deep)', color: 'var(--bone)',
+    }}>
+      {/* layered photos — 2x2, diagonal seam */}
+      <div data-travel="photos" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
         {photos.map((photo, i) => (
           <ParallaxPhoto key={i} {...photo} base={base} />
         ))}
       </div>
 
-      {/* Travel story */}
       <motion.div
         data-travel="story"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 1 }}
-        style={{ position: 'absolute', zIndex: 3, top: '120px', right: '48px', width: '280px', y: storyY }}
+        style={{ position: 'absolute', zIndex: 3, top: '150px', right: 'var(--edge)', width: '300px', y: storyY }}
       >
-        <div style={{ fontSize: '11px', letterSpacing: '3px', textTransform: 'lowercase' as const, color: 'rgba(245,242,237,0.5)', marginBottom: '24px' }}>places that shaped me</div>
-        <p style={{ fontSize: '14px', lineHeight: 1.75, fontWeight: 300, color: '#d4cbbf' }}>
-          i travel for the spontaneous turns — the wrong alley that leads to the best meal, the stranger who rewrites your perspective over coffee. every city taught me something i couldn't google. city lights and insomnia walks — this is my classroom.
+        <div className="t-label" style={{ opacity: 0.65, textShadow: '0 1px 14px rgba(30,50,35,0.8)' }}>04 — places that shaped me</div>
+        <p style={{
+          fontSize: '14px', lineHeight: 1.85, opacity: 0.85, marginTop: '22px',
+          textShadow: '0 1px 14px rgba(30,50,35,0.8)',
+        }}>
+          i travel for the spontaneous turns — the wrong alley that leads to the best meal, the
+          stranger who rewrites your perspective over coffee. every city taught me something i
+          couldn't google. city lights and insomnia walks — this is my classroom.
         </p>
       </motion.div>
 
-      {/* City names — simple fade in */}
       <motion.div data-travel="cities" style={{
-        position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', padding: '80px 0',
-        y: cityY, x: cityX,
+        position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column',
+        padding: '104px 0', y: cityY,
       }}>
         {cities.map((city) => (
           <motion.div
             key={city.name}
+            className="t-arch"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-20px' }}
             transition={{ duration: 0.6 }}
             style={{
-              textTransform: 'lowercase' as const, lineHeight: 0.85,
-              letterSpacing: '-0.5vw', fontSize: '9vw', fontWeight: 800,
-              paddingLeft: '24px', ...cityColors[city.style],
+              textTransform: 'uppercase' as const, lineHeight: 0.88,
+              letterSpacing: '-0.02em', fontSize: '8.4vw',
+              paddingLeft: 'var(--edge)', ...cityColors[city.style],
             }}
           >
             {city.name}
           </motion.div>
         ))}
       </motion.div>
-    </div>
+    </section>
   );
 }

@@ -1,69 +1,97 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import ArchedText from './ArchedText';
 
+/**
+ * Landing — the turntable, duotoned into bone + forest, with the
+ * back-print lockup sat over it: arched name, club line, motto.
+ */
 export default function Hero({ base = '' }: { base?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['-3%', '10%']);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.01]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-34%']);
-  const footerY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const imgY = useTransform(scrollYProgress, [0, 1], ['-2%', '8%']);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.0]);
+  const lockupY = useTransform(scrollYProgress, [0, 1], ['0%', '-46%']);
+  const footerY = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
+  const fade = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <div ref={ref} data-section="hero" style={{
-      position: 'relative', height: '100vh', minHeight: '700px',
-      overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-    }}>
+    <div
+      ref={ref}
+      data-section="hero"
+      className="duo"
+      style={{
+        position: 'relative', height: '100vh', minHeight: '680px',
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+      }}
+    >
       <motion.img
-        className="warm-dark"
         src={`${base}/assets/images/vinyl.jpg`}
         alt=""
         style={{
-          position: 'absolute', inset: '-7% 0', width: '100%', height: '114%',
-          objectFit: 'cover', objectPosition: 'center 60%', y: imgY, scale: imgScale,
+          position: 'absolute', inset: '-6% 0', width: '100%', height: '112%',
+          objectFit: 'cover', objectPosition: 'center 58%', y: imgY, scale: imgScale,
         }}
       />
+
+      {/* scrim — guarantees the top reads bone and the base reads forest,
+          whatever the viewport crops away */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(26,26,26,0.1) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0.35) 100%)',
+        position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+        background:
+          'linear-gradient(180deg, rgba(237,230,211,0.62) 0%, rgba(237,230,211,0.18) 34%,' +
+          ' rgba(47,74,51,0.28) 68%, rgba(30,50,35,0.78) 100%)',
       }} />
 
+      {/* back-print lockup */}
       <motion.div
-        data-hero="text"
+        data-hero="lockup"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, ease: 'easeOut' }}
-        style={{ position: 'relative', zIndex: 2, padding: '0 48px 12px', y: textY }}
+        transition={{ duration: 1.6, ease: 'easeOut' }}
+        style={{
+          position: 'relative', zIndex: 3, y: lockupY,
+          padding: '0 var(--edge)', marginTop: '17vh',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          color: 'var(--forest)',
+        }}
       >
-        <motion.div style={{ opacity: contentOpacity }}>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: '#f5f2ed', marginTop: '8px',
-          }}>nocturnal</div>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: 'rgba(245,242,237,0.35)',
-          }}>ai engineer</div>
+        <motion.div style={{ opacity: fade, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <ArchedText
+            data-hero="arch"
+            text="andy nguyen"
+            style={{ width: 'min(880px, 96%)' }}
+          />
+
+          <div data-hero="club" className="t-club" style={{
+            fontSize: '19px', lineHeight: 1, marginTop: '-14px',
+          }}>nocturnal club</div>
+
+          <div data-hero="motto" className="t-club" style={{
+            fontSize: '10px', lineHeight: 1, marginTop: '9px', opacity: 0.72,
+          }}>ai engineer · dallas</div>
         </motion.div>
       </motion.div>
 
+      {/* footer rule */}
       <motion.div
         data-hero="footer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, delay: 0.3, ease: 'easeOut' }}
+        transition={{ duration: 1.4, delay: 0.45, ease: 'easeOut' }}
         style={{
-          position: 'relative', zIndex: 2, padding: '20px 0 28px',
-          display: 'flex', alignItems: 'baseline',
-          borderTop: '1px solid rgba(245,242,237,0.15)', margin: '0 48px', y: footerY,
+          position: 'relative', zIndex: 3, y: footerY,
+          margin: '0 var(--edge)', padding: '16px 0 26px',
+          borderTop: '1px solid rgba(237,230,211,0.22)',
+          display: 'flex', alignItems: 'baseline', gap: '26px',
+          color: 'var(--bone)', fontSize: '11px',
+          letterSpacing: '0.2em', textTransform: 'uppercase',
         }}
       >
-        <motion.div style={{ opacity: contentOpacity, display: 'flex', alignItems: 'baseline', width: '100%' }}>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', marginRight: '32px' }}>andy nguyen</span>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', opacity: 0.4, marginRight: '32px' }}>kyndryl · dallas</span>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', opacity: 0.4, marginLeft: 'auto' }}>scroll</span>
-        </motion.div>
+        <span>est. denver</span>
+        <span style={{ opacity: 0.5 }}>kyndryl · dallas</span>
+        <span style={{ opacity: 0.5, marginLeft: 'auto', marginRight: '52px' }}>scroll</span>
       </motion.div>
     </div>
   );
