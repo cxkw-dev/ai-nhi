@@ -1,70 +1,53 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import type { PointerEvent } from 'react';
 
-export default function Hero({ base = '' }: { base?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['-3%', '10%']);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.01]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-34%']);
-  const footerY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+const WORDS = ['nocturnal', 'mind'];
+
+export default function Hero() {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 70, damping: 18, mass: .6 });
+  const smoothY = useSpring(pointerY, { stiffness: 70, damping: 18, mass: .6 });
+  const titleX = useTransform(smoothX, [-1, 1], [-7, 7]);
+  const titleY = useTransform(smoothY, [-1, 1], [-4, 4]);
+  const glowX = useTransform(smoothX, [-1, 1], [-48, 48]);
+
+  const moveWithPointer = (event: PointerEvent<HTMLElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set(((event.clientX - bounds.left) / bounds.width - .5) * 2);
+    pointerY.set(((event.clientY - bounds.top) / bounds.height - .5) * 2);
+  };
+
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  let letterIndex = 0;
 
   return (
-    <div ref={ref} data-section="hero" style={{
-      position: 'relative', height: '100vh', minHeight: '700px',
-      overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-    }}>
-      <motion.img
-        className="warm-dark"
-        src={`${base}/assets/images/vinyl.jpg`}
-        alt=""
-        style={{
-          position: 'absolute', inset: '-7% 0', width: '100%', height: '114%',
-          objectFit: 'cover', objectPosition: 'center 60%', y: imgY, scale: imgScale,
-        }}
-      />
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(26,26,26,0.1) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0.35) 100%)',
-      }} />
+    <section
+      id="top"
+      data-section="hero"
+      className="minimal-hero"
+      onPointerMove={moveWithPointer}
+      onPointerLeave={resetPointer}
+    >
+      <div className="hero-glyphs" aria-hidden="true"><span>✦</span><span>×</span><span>✣</span><span>••</span></div>
 
-      <motion.div
-        data-hero="text"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, ease: 'easeOut' }}
-        style={{ position: 'relative', zIndex: 2, padding: '0 48px 12px', y: textY }}
-      >
-        <motion.div style={{ opacity: contentOpacity }}>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: '#f5f2ed', marginTop: '8px',
-          }}>nocturnal</div>
-          <div style={{
-            fontSize: '28px', fontWeight: 800, textTransform: 'uppercase' as const,
-            lineHeight: 1.1, letterSpacing: '1px', color: 'rgba(245,242,237,0.35)',
-          }}>ai engineer</div>
-        </motion.div>
-      </motion.div>
+      <motion.h1 aria-label="nocturnal mind" style={{ x: titleX, y: titleY }}>
+        {WORDS.map((word) => (
+          <span className="hero-word" key={word}>
+            {[...word].map((letter) => {
+              const delay = .2 + letterIndex++ * .045;
+              return <span className="hero-letter" key={`${word}-${letterIndex}`} style={{ animationDelay: `${delay}s` }}>{letter}</span>;
+            })}
+          </span>
+        ))}
+      </motion.h1>
 
-      <motion.div
-        data-hero="footer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, delay: 0.3, ease: 'easeOut' }}
-        style={{
-          position: 'relative', zIndex: 2, padding: '20px 0 28px',
-          display: 'flex', alignItems: 'baseline',
-          borderTop: '1px solid rgba(245,242,237,0.15)', margin: '0 48px', y: footerY,
-        }}
-      >
-        <motion.div style={{ opacity: contentOpacity, display: 'flex', alignItems: 'baseline', width: '100%' }}>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', marginRight: '32px' }}>andy nguyen</span>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', opacity: 0.4, marginRight: '32px' }}>kyndryl · dallas</span>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: '14px', color: '#f5f2ed', opacity: 0.4, marginLeft: 'auto' }}>scroll</span>
-        </motion.div>
-      </motion.div>
-    </div>
+      <motion.div className="hero-glow" aria-hidden="true" style={{ x: glowX }}><span /></motion.div>
+      <div className="hero-scroll-cue" aria-hidden="true">(scroll down &amp; explore)</div>
+    </section>
   );
 }

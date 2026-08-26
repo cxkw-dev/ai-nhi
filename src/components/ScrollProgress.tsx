@@ -7,8 +7,8 @@ export default function ScrollProgress() {
     <motion.div
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999,
-        height: 2,
-        background: 'linear-gradient(90deg, #b8860b, #d4a017, #cfb53b)',
+        height: 3,
+        background: '#c7d67a',
         transformOrigin: '0%',
         scaleX: scrollYProgress,
       }}

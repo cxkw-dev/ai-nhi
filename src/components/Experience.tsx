@@ -126,117 +126,45 @@ const techIcons: Record<string, { icon: IconType; color?: string }> = {
 export default function Experience() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '16%']);
-  const bgX = useTransform(scrollYProgress, [0, 1], ['5%', '-4%']);
+  const headingX = useTransform(scrollYProgress, [0, 1], ['4%', '-3%']);
 
   return (
-    <div ref={ref} id="experience" data-section="experience" style={{
-      background: '#1a1a1a', color: '#d4cbbf', padding: '80px 48px', position: 'relative',
-    }}>
-      <motion.div style={{
-        fontSize: '180px', fontWeight: 800, textTransform: 'lowercase' as const,
-        lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(212,203,191,0.03)',
-        position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '10px', right: '48px', y: bgY, x: bgX,
-      }}>exp</motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        style={{ marginBottom: '48px' }}
-      >
-        <h2 style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '3px', textTransform: 'lowercase' as const }}>experience</h2>
-      </motion.div>
+    <section ref={ref} id="experience" data-section="experience" style={{ padding: 'clamp(90px, 9vw, 150px) var(--page-pad)', position: 'relative', overflow: 'hidden' }}>
+      <div data-exp="intro" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, marginBottom: 'clamp(72px, 9vw, 130px)' }}>
+        <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 52 }}><span className="eyebrow">Selected history</span><span className="section-index">04</span></div><motion.h2 style={{ x: headingX, fontFamily: 'var(--display)', fontSize: 'clamp(64px, 9vw, 145px)', lineHeight: .8, letterSpacing: '-.06em', textTransform: 'uppercase' }}>Work,<br /><span style={{ fontFamily: 'var(--serif)', fontWeight: 400, fontStyle: 'italic', color: 'var(--lime)' }}>with</span> intent.</motion.h2></div>
+        <p style={{ alignSelf: 'end', justifySelf: 'end', maxWidth: 470, fontFamily: 'var(--serif)', fontSize: 'clamp(24px, 2.6vw, 42px)', lineHeight: 1.08, color: 'rgba(241,237,223,.78)' }}>Fourteen years turning complicated technology into systems people can trust and use.</p>
+      </div>
 
       {jobs.map((job, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-20px' }}
-          transition={{ duration: 0.6 }}
-          style={{ padding: '28px 0', borderTop: '1px solid rgba(212,203,191,0.08)' }}
+          className="exp-row"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: .65, delay: Math.min(i * .04, .16) }}
+          style={{ padding: 'clamp(28px, 3vw, 46px) 0' }}
         >
-          {/* Header row */}
-          <div data-exp="header" style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
-            <div style={{
-              fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-              fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,
-            }}>{job.year}</div>
-            <div style={{ fontSize: '15px', fontWeight: 500 }}>{job.role}</div>
-            <div style={{ fontSize: '13px', fontWeight: 300, opacity: 0.35, marginLeft: 'auto' }}>{job.org}</div>
+          <div data-exp="header" style={{ display: 'grid', gridTemplateColumns: '130px 1fr auto', gap: 32, alignItems: 'baseline' }}>
+            <div style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 17, color: 'var(--lime)' }}>{job.year}</div>
+            <h3 className="exp-role" style={{ fontSize: 'clamp(27px, 3.2vw, 50px)', fontWeight: 400, lineHeight: 1 }}>{job.role}</h3>
+            <div style={{ fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(241,237,223,.48)' }}>{job.org}</div>
           </div>
-
-          {/* Summary */}
-          <div data-exp="desc" style={{
-            marginTop: '10px', marginLeft: '142px',
-            fontSize: '13px', fontWeight: 300, lineHeight: 1.6, opacity: 0.5,
-            maxWidth: '520px',
-          }}>{job.desc}</div>
-
-          {/* Project bullets */}
-          {job.projects.length > 0 && (
-            <ul data-exp="projects" style={{
-              marginTop: '14px', marginLeft: '158px', maxWidth: '560px',
-              display: 'grid', gap: '8px', paddingLeft: '16px',
-            }}>
-              {job.projects.map((p, j) => (
-                <li key={j} style={{
-                  fontSize: '12px', fontWeight: 300, lineHeight: 1.6,
-                  opacity: 0.46, paddingLeft: '2px',
-                }}>{p}</li>
-              ))}
-            </ul>
-          )}
-
-          {/* Tech tags */}
-          <div data-exp="tech" style={{
-            marginTop: '12px', marginLeft: '142px',
-            display: 'flex', flexWrap: 'wrap' as const, gap: '6px',
-          }}>
-            {job.tech.map((t) => {
-              const entry = techIcons[t];
-              return (
-                <span key={t} style={{
-                  fontSize: '9px', letterSpacing: '1px', textTransform: 'lowercase' as const,
-                  padding: '2px 8px', border: '1px solid rgba(212,203,191,0.1)',
-                  borderRadius: '2px', color: 'rgba(212,203,191,0.35)',
-                  display: 'inline-flex', alignItems: 'center', gap: '5px',
-                }}>
-                  {entry && <entry.icon style={{ fontSize: '11px', color: entry.color }} />}
-                  {t}
-                </span>
-              );
-            })}
+          <div data-exp="body" style={{ marginTop: 18, marginLeft: 162, maxWidth: 760 }}>
+            <p style={{ fontSize: 13, lineHeight: 1.7, color: 'rgba(241,237,223,.62)' }}>{job.desc}</p>
+            {job.projects.length > 0 && <ul data-exp="projects" style={{ marginTop: 18, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 30px', paddingLeft: 16, color: 'rgba(241,237,223,.42)' }}>{job.projects.map((project) => <li key={project} style={{ fontSize: 11, lineHeight: 1.55 }}>{project}</li>)}</ul>}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 20 }}>
+              {job.tech.map((tech) => { const entry = techIcons[tech]; return <span className="tech-chip" key={tech}>{entry && <entry.icon style={{ fontSize: 11, color: entry.color }} />}{tech}</span>; })}
+            </div>
           </div>
         </motion.div>
       ))}
 
-      {/* Education - subtle at the bottom */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        style={{ marginTop: '48px', paddingTop: '28px', borderTop: '1px solid rgba(212,203,191,0.08)' }}
-      >
-        <div style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '3px', textTransform: 'lowercase' as const, marginBottom: '24px' }}>education</div>
-        {[
-          { year: '2005 — 09', school: 'university of colorado, boulder', detail: 'finance & info systems' },
-          { year: '2013 — 15', school: 'galvanize · davinci coders', detail: 'full-stack development' },
-        ].map((edu, i) => (
-          <div key={i} data-exp="header" style={{ display: 'flex', gap: '32px', padding: '12px 0', alignItems: 'baseline' }}>
-            <div style={{
-              fontFamily: "'Instrument Serif', serif", fontStyle: 'italic',
-              fontSize: '15px', opacity: 0.3, width: '110px', flexShrink: 0,
-            }}>{edu.year}</div>
-            <div style={{ fontSize: '15px', fontWeight: 500 }}>{edu.school}</div>
-            <div style={{ fontSize: '13px', fontWeight: 300, opacity: 0.35, marginLeft: 'auto' }}>{edu.detail}</div>
-          </div>
-        ))}
-      </motion.div>
-    </div>
+      <div data-exp="education" style={{ marginTop: 70, paddingTop: 24, borderTop: '1px solid rgba(241,237,223,.18)', display: 'grid', gridTemplateColumns: '160px 1fr 1fr', gap: 26 }}>
+        <div className="eyebrow">Education</div>
+        <div><strong style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 400 }}>University of Colorado, Boulder</strong><p style={{ marginTop: 6, fontSize: 11, color: 'rgba(241,237,223,.45)' }}>Finance & Information Systems · 2005—09</p></div>
+        <div><strong style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 400 }}>Galvanize · DaVinci Coders</strong><p style={{ marginTop: 6, fontSize: 11, color: 'rgba(241,237,223,.45)' }}>Full-stack development · 2013—15</p></div>
+      </div>
+    </section>
   );
 }

@@ -40,7 +40,7 @@ export default function MusicPlayer() {
         <div style={{
           position: 'absolute', bottom: 0, right: 0,
           width: '44px', height: '44px', borderRadius: '50%',
-          border: '2px solid rgba(255,255,255,0.5)',
+          border: '2px solid rgba(199,214,122,0.7)',
           animation: 'pulse-ring 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
           pointerEvents: 'none',
         }} />
@@ -51,9 +51,9 @@ export default function MusicPlayer() {
         onClick={() => setOpen(!open)}
         style={{
           width: '44px', height: '44px', borderRadius: '50%',
-          border: '1px solid rgba(26,26,26,0.15)',
-          background: open ? '#1a1a1a' : 'linear-gradient(135deg, #c9a96e, #a8863a)',
-          color: open ? '#c9a96e' : '#1a1a1a',
+          border: '1px solid rgba(241,237,223,0.28)',
+          background: open ? '#f1eddf' : '#163c2c',
+          color: open ? '#163c2c' : '#c7d67a',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           transition: 'all 0.3s ease',
           boxShadow: '0 2px 12px rgba(0,0,0,0.1)',

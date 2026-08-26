@@ -1,89 +1,31 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
-export default function About({ base = '' }: { base?: string }) {
-  const imgRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: imgRef, offset: ['start end', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['9%', '-9%']);
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
+const STATS = [
+  ['14+', 'years building'],
+  ['10', 'years at IBM'],
+];
 
-  const fade = {
-    initial: { opacity: 0 },
-    whileInView: { opacity: 1 },
-    viewport: { once: true, margin: '-80px' as const },
-    transition: { duration: 0.8, ease: 'easeOut' as const },
-  };
-
+export default function About() {
   return (
-    <div id="about" data-section="about" style={{
-      position: 'relative', display: 'flex', minHeight: '550px', overflow: 'hidden',
-    }}>
-      <motion.div style={{
-        fontSize: '180px', fontWeight: 800, textTransform: 'lowercase' as const,
-        lineHeight: 0.8, letterSpacing: '-8px', color: 'rgba(26,26,26,0.04)',
-        position: 'absolute', zIndex: 0, pointerEvents: 'none', whiteSpace: 'nowrap',
-        top: '10px', left: '-10px', y: bgY,
-      }}>about</motion.div>
+    <section id="about" data-section="about">
+      <div data-about="copy" style={{ minHeight: 780, padding: 'clamp(90px, 9vw, 145px) var(--page-pad)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'clamp(58px, 7vw, 105px)' }}><span className="eyebrow">The person</span><span className="section-index">02</span></div>
+          <motion.h2 className="about-statement" initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: .9, ease: [0.16, 1, 0.3, 1] }} style={{ maxWidth: 1180, fontFamily: 'var(--display)', fontSize: 'clamp(54px, 7.5vw, 122px)', lineHeight: .88, letterSpacing: '-.06em', textTransform: 'uppercase' }}>
+            Denver raised. <em>Cloud shaped.</em> AI obsessed.
+          </motion.h2>
+        </div>
 
-      <div data-about="text" style={{
-        width: '55%', padding: '80px 48px', position: 'relative', zIndex: 2,
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-      }}>
-        <motion.div {...fade} style={{ fontSize: '11px', letterSpacing: '3px', textTransform: 'lowercase' as const, color: '#999', marginBottom: '24px' }}>
-          02 — about
-        </motion.div>
-
-        <motion.div {...fade} transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}>
-          <div data-about="heading" style={{
-            fontSize: '56px', fontWeight: 800, textTransform: 'lowercase' as const,
-            lineHeight: 0.92, letterSpacing: '-2px', marginBottom: '24px',
-          }}>denver raised.<br />cloud platforms.<br />agentic ai.</div>
-        </motion.div>
-
-        <motion.div {...fade} transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}>
-          <p style={{ fontSize: '15px', lineHeight: 1.75, fontWeight: 300, color: '#666', maxWidth: '440px' }}>
-            a decade at ibm — shipping cloud platforms, kubernetes migrations, and innovation projects across health-tech and enterprise. did time in the bay, now crafting agentic ai at kyndryl out of dallas.
-          </p>
-          <p style={{ fontSize: '15px', lineHeight: 1.75, fontWeight: 300, color: '#666', maxWidth: '440px', marginTop: '12px' }}>
-            along the way i picked up vinyl, passport stamps, and a mean toprock.
-          </p>
-        </motion.div>
-
-        <motion.div data-about="stats" {...fade} transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }} style={{ display: 'flex', gap: '40px', marginTop: '32px' }}>
+        <div data-about="details" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.3fr) minmax(320px, .7fr)', gap: 'clamp(56px, 9vw, 150px)', alignItems: 'end', marginTop: 'clamp(72px, 9vw, 130px)', paddingTop: 26, borderTop: '1px solid var(--line)' }}>
           <div>
-            <div style={{ fontSize: '36px', fontWeight: 800, lineHeight: 1, letterSpacing: '-1px' }}>14+</div>
-            <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'lowercase' as const, color: '#999', marginTop: '4px' }}>years building</div>
+            <p style={{ maxWidth: 650, color: '#081510', fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.65, fontWeight: 400 }}>A decade at IBM shipping cloud platforms, Kubernetes migrations, and innovation projects across health-tech and enterprise. Now crafting agentic AI at Kyndryl out of Dallas.</p>
+            <p style={{ maxWidth: 650, marginTop: 16, color: 'var(--forest)', fontFamily: 'var(--serif)', fontSize: 'clamp(18px, 1.7vw, 26px)', fontStyle: 'italic' }}>Along the way I picked up vinyl, passport stamps, and a mean toprock.</p>
           </div>
-          <div>
-            <div style={{ fontSize: '36px', fontWeight: 800, lineHeight: 1, letterSpacing: '-1px' }}>10</div>
-            <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'lowercase' as const, color: '#999', marginTop: '4px' }}>years at ibm</div>
+          <div data-about="stats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+            {STATS.map(([value, label]) => <div className="stat-card" key={label} style={{ paddingTop: 14 }}><strong style={{ fontFamily: 'var(--display)', fontSize: 38 }}>{value}</strong><div style={{ marginTop: 4, fontSize: 10, letterSpacing: '.14em', textTransform: 'uppercase' }}>{label}</div></div>)}
           </div>
-        </motion.div>
-
-        <motion.a
-          {...fade} transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
-          href="https://linkedin.com" target="_blank" rel="noopener"
-          style={{
-            display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px',
-            textTransform: 'lowercase' as const, textDecoration: 'underline', textUnderlineOffset: '3px',
-            color: '#1a1a1a', marginTop: '24px',
-          }}
-        >[&nbsp;&nbsp;linkedin&nbsp;&nbsp;]</motion.a>
+        </div>
       </div>
-
-      {/* Image — gentle parallax drift, no flashy reveals */}
-      <div data-about="image" ref={imgRef} style={{ width: '45%', position: 'relative', overflow: 'hidden' }}>
-        <motion.img
-          src={`${base}/assets/images/cafe-portrait.jpg`}
-          alt=""
-          style={{
-            position: 'absolute', top: '-12%', left: 0, width: '100%', height: '124%',
-            objectFit: 'cover', objectPosition: 'center 15%',
-            filter: 'sepia(25%) saturate(60%) brightness(85%) contrast(100%) hue-rotate(-5deg)',
-            y: imgY,
-          }}
-        />
-      </div>
-    </div>
+    </section>
   );
 }
