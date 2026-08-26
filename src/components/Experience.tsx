@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 import type { IconType } from 'react-icons';
 import {
   SiAnthropic, SiClaude, SiOpenai, SiGoogle, SiLangchain, SiGithubcopilot,
@@ -140,22 +141,24 @@ export default function Experience() {
       background: 'var(--forest-deep)', color: 'var(--bone)',
       padding: '120px var(--edge)', position: 'relative',
     }}>
-      <motion.div {...fade} transition={{ duration: 0.8 }} className="t-label" style={{ opacity: 0.45 }}>
-        03 — experience
-      </motion.div>
+      <Reveal duration={0.9} className="t-label" style={{ opacity: 0.45 }}>03 — experience</Reveal>
 
       <div style={{ marginTop: '52px' }}>
         {jobs.map((job, i) => (
           <motion.div
             key={i}
+            className="exp-row"
             {...fade}
             transition={{ duration: 0.7 }}
-            style={{ padding: '30px 0', borderTop: '1px solid rgba(237,230,211,0.12)' }}
+            style={{ position: 'relative', padding: '30px 0', borderTop: '1px solid rgba(237,230,211,0.12)' }}
           >
+            {/* hairline that draws across on hover */}
+            <span className="exp-rule" aria-hidden="true" />
+
             <div data-exp="header" style={{ display: 'flex', gap: '32px', alignItems: 'baseline' }}>
-              <div className="t-label" style={{ width: '110px', flexShrink: 0, opacity: 0.4 }}>{job.year}</div>
-              <div style={{ fontSize: '16px', fontWeight: 400 }}>{job.role}</div>
-              <div className="t-label" style={{ marginLeft: 'auto', opacity: 0.4 }}>{job.org}</div>
+              <div className="t-label exp-year" style={{ width: '110px', flexShrink: 0, opacity: 0.4 }}>{job.year}</div>
+              <Reveal duration={0.9} style={{ fontSize: '16px', fontWeight: 400 }}>{job.role}</Reveal>
+              <div className="t-label exp-org" style={{ marginLeft: 'auto', opacity: 0.4 }}>{job.org}</div>
             </div>
 
             <div data-exp="desc" style={{
@@ -198,7 +201,7 @@ export default function Experience() {
       </div>
 
       <motion.div {...fade} transition={{ duration: 0.7 }} style={{ marginTop: '64px' }}>
-        <div className="t-label" style={{ opacity: 0.45 }}>education</div>
+        <Reveal duration={0.9} className="t-label" style={{ opacity: 0.45 }}>education</Reveal>
         <div style={{ marginTop: '26px' }}>
           {education.map((edu, i) => (
             <div key={i} data-exp="header" style={{

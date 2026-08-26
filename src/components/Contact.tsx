@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ArchedText from './ArchedText';
+import Reveal from './Reveal';
 
 const links = [
   { label: 'github', href: 'https://github.com/cxkw-dev' },
@@ -30,19 +31,20 @@ export default function Contact() {
         <ArchedText id="contact-arch" text="nocturnal" />
       </motion.div>
 
-      <motion.div {...fade} transition={{ duration: 0.8 }} className="t-label" style={{ opacity: 0.45 }}>
-        05 — connect
-      </motion.div>
+      <Reveal duration={0.9} className="t-label" style={{ opacity: 0.45 }}>05 — connect</Reveal>
 
-      <motion.h2
-        {...fade} transition={{ duration: 0.9, delay: 0.08 }}
+      <h2
         data-contact="heading"
         className="t-serif"
         style={{
           fontStyle: 'italic', fontSize: '58px', fontWeight: 400,
           lineHeight: 1.06, margin: '28px 0 18px',
         }}
-      >let's build<br />something</motion.h2>
+      >
+        {["let's build", 'something'].map((line, i) => (
+          <Reveal key={line} delay={0.08 + i * 0.1} duration={1.05}>{line}</Reveal>
+        ))}
+      </h2>
 
       <motion.p {...fade} transition={{ duration: 0.9, delay: 0.14 }} style={{
         fontSize: '15px', lineHeight: 1.8, opacity: 0.65, maxWidth: '380px',

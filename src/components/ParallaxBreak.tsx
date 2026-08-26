@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Reveal from './Reveal';
 
 /**
  * Quiet full-bleed band between the script and the work — one duotoned
@@ -25,7 +26,7 @@ export default function ParallaxBreak({ base = '' }: { base?: string }) {
       {/* base scrim — the sky in this frame duotones bright, the label is bone */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
-        background: 'linear-gradient(0deg, rgba(30,50,35,0.62) 0%, rgba(30,50,35,0) 42%)',
+        background: 'linear-gradient(0deg, rgba(30,50,35,0.72) 0%, rgba(30,50,35,0) 52%)',
       }} />
 
       <motion.div
@@ -36,8 +37,11 @@ export default function ParallaxBreak({ base = '' }: { base?: string }) {
           display: 'flex', alignItems: 'baseline', gap: '20px',
         }}
       >
-        <span className="t-label" style={{ opacity: 0.8 }}>02 — between idea and runtime</span>
-        <span className="t-label" style={{ opacity: 0.45, marginLeft: 'auto', marginRight: '52px' }}>korea</span>
+        <Reveal as="span" duration={0.95} className="t-label" style={{ opacity: 0.8 }}>
+          02 — between idea and runtime
+        </Reveal>
+        <Reveal as="span" delay={0.1} duration={0.95} className="t-label"
+          style={{ opacity: 0.62, marginLeft: 'auto', marginRight: '52px' }}>korea</Reveal>
       </motion.div>
     </div>
   );

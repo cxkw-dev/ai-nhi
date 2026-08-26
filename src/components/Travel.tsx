@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Reveal from './Reveal';
 
 const cities: { name: string; style: 'bold' | 'outline' | 'ghost' }[] = [
   { name: 'seoul', style: 'bold' },
@@ -21,6 +22,8 @@ const cityColors = {
   outline: { WebkitTextStroke: '1.5px rgba(237,230,211,0.34)', color: 'transparent' },
   ghost:   { color: 'rgba(237,230,211,0.11)' },
 };
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SKEW = 6; // percentage offset from center for diagonal
 const MAX_W = 50 + SKEW; // 56% — widest extent of each half
@@ -49,10 +52,12 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
+  // two nested clips: the outer holds the diagonal seam, the inner wipes the
+  // photo in. they cannot share an element, and the duotone layers have to
+  // live inside both or they paint a flat wedge where the photo isn't.
   return (
     <div
       ref={ref}
-      className="duo duo-invert"
       style={{
         position: 'absolute',
         top: `${row * 50}%`,
@@ -62,19 +67,36 @@ function ParallaxPhoto({ img, pos, base, side, row }: {
         clipPath: getClipPath(side),
       }}
     >
-      <motion.img
-        src={`${base}/assets/images/${img}`}
-        alt=""
-        style={{
-          position: 'absolute', width: '100%', height: '124%',
-          objectFit: 'cover', objectPosition: pos, y,
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px' }}
+        style={{ position: 'absolute', inset: 0 }}
+      >
+      <motion.div
+        className="duo duo-invert"
+        variants={{
+          hidden: { clipPath: 'inset(0% 0% 100% 0%)' },
+          visible: { clipPath: 'inset(0% 0% 0% 0%)' },
         }}
-      />
-      {/* sink the photographs so the city names can sit on top of them */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
-        background: 'rgba(30,50,35,0.72)',
-      }} />
+        transition={{ duration: 1.5, ease: EASE, delay: side === 'right' ? 0.12 : 0 }}
+        style={{ position: 'absolute', inset: 0, willChange: 'clip-path' }}
+      >
+        <motion.img
+          src={`${base}/assets/images/${img}`}
+          alt=""
+          style={{
+            position: 'absolute', width: '100%', height: '124%',
+            objectFit: 'cover', objectPosition: pos, y,
+          }}
+        />
+        {/* sink the photographs so the city names can sit on top of them */}
+        <div style={{
+          position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+          background: 'rgba(30,50,35,0.72)',
+        }} />
+      </motion.div>
+      </motion.div>
     </div>
   );
 }
@@ -105,7 +127,9 @@ export default function Travel({ base = '' }: { base?: string }) {
         transition={{ duration: 1 }}
         style={{ position: 'absolute', zIndex: 3, top: '150px', right: 'var(--edge)', width: '300px', y: storyY }}
       >
-        <div className="t-label" style={{ opacity: 0.65, textShadow: '0 1px 14px rgba(30,50,35,0.8)' }}>04 — places that shaped me</div>
+        <Reveal duration={0.9} className="t-label" style={{ opacity: 0.65, textShadow: '0 1px 14px rgba(30,50,35,0.8)' }}>
+          04 — places that shaped me
+        </Reveal>
         <p style={{
           fontSize: '14px', lineHeight: 1.85, opacity: 0.85, marginTop: '22px',
           textShadow: '0 1px 14px rgba(30,50,35,0.8)',
@@ -123,18 +147,24 @@ export default function Travel({ base = '' }: { base?: string }) {
         {cities.map((city) => (
           <motion.div
             key={city.name}
-            className="t-arch"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: '-20px' }}
-            transition={{ duration: 0.6 }}
-            style={{
-              textTransform: 'uppercase' as const, lineHeight: 0.88,
-              letterSpacing: '-0.02em', fontSize: '8.4vw',
-              paddingLeft: 'var(--edge)', ...cityColors[city.style],
-            }}
+            style={{ overflow: 'hidden' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
           >
-            {city.name}
+            <motion.div
+              className="t-arch"
+              variants={{ hidden: { y: '105%' }, visible: { y: '0%' } }}
+              transition={{ duration: 1.1, ease: EASE }}
+              style={{
+                textTransform: 'uppercase' as const, lineHeight: 0.88,
+                letterSpacing: '-0.02em', fontSize: '8.4vw',
+                paddingLeft: 'var(--edge)', willChange: 'transform',
+                ...cityColors[city.style],
+              }}
+            >
+              {city.name}
+            </motion.div>
           </motion.div>
         ))}
       </motion.div>

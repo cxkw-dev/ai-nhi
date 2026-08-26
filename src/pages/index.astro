@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SmoothScroll from '../components/SmoothScroll';
+import Intro from '../components/Intro';
 import Nav from '../components/Nav';
 import CustomCursor from '../components/CustomCursor';
 import ScrollProgress from '../components/ScrollProgress';
 import Hero from '../components/Hero';
+import Marquee from '../components/Marquee';
 import About from '../components/About';
 import Statement from '../components/Statement';
 import ParallaxBreak from '../components/ParallaxBreak';
@@ -13,18 +16,27 @@ import Contact from '../components/Contact';
 import MusicPlayer from '../components/MusicPlayer';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const topTicker = ['nocturnal club', 'follow your dreams', 'est. denver', 'after hours'];
+const midTicker = ['agentic ai', 'cloud platforms', 'vinyl', 'passport stamps', 'toprock'];
 ---
 
 <Layout>
+  <SmoothScroll client:load />
+  <Intro client:load />
   <CustomCursor client:load />
   <ScrollProgress client:load />
   <Nav client:load />
+
   <Hero client:load base={base} />
+  <Marquee client:visible items={topTicker} baseVelocity={2.6} tone="paper" />
   <About client:load base={base} />
   <Statement client:load />
   <ParallaxBreak client:load base={base} />
+  <Marquee client:visible items={midTicker} baseVelocity={2} tone="ink" />
   <Experience client:load />
   <Travel client:load base={base} />
   <Contact client:load />
+
   <MusicPlayer client:load />
 </Layout>
