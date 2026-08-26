@@ -51,16 +51,22 @@ export default function Statement() {
         <motion.div className="rule" style={{ flex: 1, scaleX: ruleScale, transformOrigin: 'left' }} />
       </div>
 
-      <motion.div style={{ y: wordY, width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-120px' }}
+        style={{ y: wordY, width: '100%', display: 'flex', justifyContent: 'center' }}
+      >
         <motion.div
           data-statement="word"
           className="t-script"
-          initial={{ clipPath: 'inset(0 100% -30% 0)' }}
-          whileInView={{ clipPath: 'inset(0 0% -30% 0)' }}
-          viewport={{ once: true, margin: '-150px' }}
+          variants={{
+            hidden: { clipPath: 'inset(0% 100% -30% 0%)' },
+            visible: { clipPath: 'inset(0% 0% -30% 0%)' },
+          }}
           transition={{ duration: 1.5, ease: EASE, delay: 0.05 }}
           style={{
-            fontSize: 'clamp(72px, 17vw, 300px)', lineHeight: 1.05,
+            fontSize: 'clamp(58px, 17vw, 300px)', lineHeight: 1.05,
             padding: '0.14em 0', whiteSpace: 'nowrap', willChange: 'clip-path',
           }}
         >Nocturnal</motion.div>

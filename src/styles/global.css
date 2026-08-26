@@ -190,7 +190,7 @@ hr, .rule {
 
   [data-hero="lockup"] { padding: 0 22px !important; }
 
-  [data-hero="arch"] { width: 108% !important; }
+  [data-hero="arch"] { width: 100% !important; }
 
   [data-hero="club"]  { font-size: 15px !important; }
   [data-hero="motto"] { font-size: 9px !important; }
@@ -200,7 +200,7 @@ hr, .rule {
     padding: 12px 0 18px !important;
     font-size: 10px !important;
   }
-  [data-hero="footer"] > span:nth-child(2) { display: none !important; }
+  [data-hero="meta"] { display: none !important; }
 
   /* --- about ---------------------------------------------- */
 
@@ -218,8 +218,11 @@ hr, .rule {
   /* --- statement (cursive nocturnal) ---------------------- */
 
   [data-section="statement"] { padding: 96px 22px !important; }
-  [data-statement="word"]    { font-size: 27vw !important; }
   [data-statement="side"]    { display: none !important; }
+
+  /* --- contact -------------------------------------------- */
+
+  [data-contact="mark"] { display: none !important; }
 
   /* --- break band ----------------------------------------- */
 

@@ -110,7 +110,7 @@ export default function Hero({ base = '' }: { base?: string }) {
           gap: '26px', width: '100%',
         }}>
           <Reveal as="span" delay={1.15} duration={0.9}>est. denver</Reveal>
-          <Reveal as="span" delay={1.22} duration={0.9} style={{ opacity: 0.5 }}>kyndryl · dallas</Reveal>
+          <Reveal as="span" data-hero="meta" delay={1.22} duration={0.9} style={{ opacity: 0.5 }}>kyndryl · dallas</Reveal>
           <span style={{ marginLeft: 'auto', marginRight: '52px', display: 'flex', alignItems: 'baseline', gap: '10px', opacity: 0.5 }}>
             <Reveal as="span" delay={1.3} duration={0.9}>scroll</Reveal>
             <motion.span

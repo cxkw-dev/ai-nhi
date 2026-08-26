@@ -25,6 +25,7 @@ export default function Reveal({
   as = 'div',
   className,
   style,
+  ...rest
 }: {
   children: ReactNode;
   delay?: number;
@@ -33,6 +34,7 @@ export default function Reveal({
   as?: 'div' | 'span';
   className?: string;
   style?: React.CSSProperties;
+  [key: `data-${string}`]: string | undefined;
 }) {
   const inline = as === 'span';
   const Outer = inline ? motion.span : motion.div;
@@ -40,6 +42,7 @@ export default function Reveal({
   return (
     <Outer
       className={className}
+      {...rest}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-60px' }}

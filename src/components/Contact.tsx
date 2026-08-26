@@ -22,10 +22,13 @@ export default function Contact() {
       {/* faint bookend of the hero back-print */}
       <motion.div
         data-contact="mark"
-        {...fade} transition={{ duration: 1.4 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.08 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 1.4 }}
         style={{
           position: 'absolute', right: 'calc(var(--edge) - 40px)', top: '150px',
-          width: 'min(520px, 42vw)', opacity: 0.08, pointerEvents: 'none',
+          width: 'min(520px, 42vw)', pointerEvents: 'none',
         }}
       >
         <ArchedText id="contact-arch" text="nocturnal" />
