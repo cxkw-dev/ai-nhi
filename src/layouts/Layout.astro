@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,7 @@ import '../styles/global.css';
   <title>Andy Nguyen — Forward Deployed Engineer & AI Engineer</title>
   <meta name="description" content="Andy Nguyen builds AI agents and modernization tools that help clients understand complex systems, make sense of their data, and improve how they work." />
   <meta name="theme-color" content="#163c2c" />
+  <link rel="describedby" type="text/plain" href={`${base}/llms.txt`} />
 </head>
 <body>
   <slot />
