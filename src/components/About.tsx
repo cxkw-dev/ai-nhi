@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
+import profile from '../data/profile.json';
 
 const STATS = [
-  ['14+', 'years building'],
+  ['2015', 'started at IBM'],
   ['10', 'years at IBM'],
 ];
 
@@ -18,7 +19,7 @@ export default function About() {
 
         <div data-about="details" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.3fr) minmax(320px, .7fr)', gap: 'clamp(56px, 9vw, 150px)', alignItems: 'end', marginTop: 'clamp(72px, 9vw, 130px)', paddingTop: 26, borderTop: '1px solid var(--line)' }}>
           <div>
-            <p style={{ maxWidth: 650, color: '#081510', fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.65, fontWeight: 400 }}>A decade at IBM shipping cloud platforms, Kubernetes migrations, and innovation projects across health-tech and enterprise. Now crafting agentic AI at Kyndryl out of Dallas.</p>
+            <p style={{ maxWidth: 650, color: '#081510', fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.65, fontWeight: 400 }}>I’m Andy, a forward deployed engineer based in Dallas. {profile.summary}</p>
             <p style={{ maxWidth: 650, marginTop: 16, color: 'var(--forest)', fontFamily: 'var(--serif)', fontSize: 'clamp(18px, 1.7vw, 26px)', fontStyle: 'italic' }}>Along the way I picked up vinyl, passport stamps, and a mean toprock.</p>
           </div>
           <div data-about="stats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>

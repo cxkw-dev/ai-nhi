@@ -1,0 +1,172 @@
+[
+  {
+    "category": "AI development tools",
+    "items": [
+      "Claude Code",
+      "Cline",
+      "Codex",
+      "Context7",
+      "Gemini",
+      "GitHub Copilot",
+      "Jupyter"
+    ]
+  },
+  {
+    "category": "AI engineering",
+    "items": [
+      "Agent harnesses",
+      "Agent orchestration",
+      "Agent skills and hooks",
+      "Agent2Agent (A2A)",
+      "Generative AI",
+      "Guardrails",
+      "Human-in-the-loop workflows",
+      "LLM evaluation",
+      "Model Context Protocol (MCP)",
+      "Prompt design",
+      "Retrieval augmented generation (RAG)",
+      "Tool and API integration"
+    ]
+  },
+  {
+    "category": "Backend & APIs",
+    "items": [
+      "Express",
+      "FastAPI",
+      "NestJS",
+      "Node.js",
+      "OpenAPI",
+      "Prisma",
+      "Pydantic",
+      "Ruby on Rails",
+      "tRPC"
+    ]
+  },
+  {
+    "category": "Cloud & delivery",
+    "items": [
+      "Ansible",
+      "AWS",
+      "Azure AI Foundry",
+      "Azure Blob Storage",
+      "Azure OpenAI",
+      "CI/CD",
+      "Cloud Build",
+      "Cloud Foundry",
+      "Code Engine",
+      "Docker",
+      "GitHub Actions",
+      "GKE",
+      "Google Cloud",
+      "Helm",
+      "IBM Cloud",
+      "IBM Schematics",
+      "Kubernetes",
+      "Microsoft Azure",
+      "OpenShift",
+      "Tekton",
+      "Terraform"
+    ]
+  },
+  {
+    "category": "Data & retrieval",
+    "items": [
+      "Astra DB",
+      "ChromaDB",
+      "Cloudant",
+      "CouchDB",
+      "Elasticsearch",
+      "Firebase",
+      "Milvus",
+      "MongoDB Atlas",
+      "Parquet",
+      "PostgreSQL",
+      "PyArrow",
+      "Redis"
+    ]
+  },
+  {
+    "category": "Frameworks & platforms",
+    "items": [
+      "CrewAI",
+      "Google ADK",
+      "IBM Cloud Pak for Business Automation",
+      "LangChain",
+      "Langflow",
+      "LangGraph",
+      "LiteLLM",
+      "n8n",
+      "Ollama",
+      "Temporal",
+      "Watson Orchestrate",
+      "watsonx.ai",
+      "watsonx.data"
+    ]
+  },
+  {
+    "category": "Frontend",
+    "items": [
+      "AG-UI",
+      "CopilotKit",
+      "CSS",
+      "Material UI",
+      "Next.js",
+      "React",
+      "React Router",
+      "Redux",
+      "Remix",
+      "Sass",
+      "Styled Components",
+      "Tailwind CSS",
+      "TanStack Query"
+    ]
+  },
+  {
+    "category": "Languages",
+    "items": [
+      "JavaScript",
+      "Python",
+      "Ruby",
+      "TypeScript"
+    ]
+  },
+  {
+    "category": "Models",
+    "items": [
+      "Claude Opus",
+      "DeepSeek",
+      "Gemini Flash",
+      "Gemini Pro",
+      "GPT-6 Astra",
+      "GPT-6 Sol",
+      "Granite",
+      "Llama",
+      "Mistral"
+    ]
+  },
+  {
+    "category": "Quality & integration",
+    "items": [
+      "API Gateway",
+      "Capybara",
+      "DeepEval",
+      "Entra ID",
+      "Google Model Armor",
+      "IBM App ID",
+      "Jest",
+      "JMeter",
+      "Langfuse",
+      "LogDNA",
+      "Node-RED",
+      "Okta / OIDC",
+      "OpenTelemetry",
+      "Playwright",
+      "Postman",
+      "Pytest",
+      "RSpec",
+      "Secrets Manager",
+      "Spec-driven development",
+      "Test-driven development"
+    ]
+  }
+]

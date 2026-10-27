@@ -1,0 +1,153 @@
+[
+  {
+    "year": "Jan 2026 — present",
+    "role": "Forward Deployed Engineer (Agents)",
+    "org": "Kyndryl · Dallas",
+    "desc": "I build AI agents and modernization tools that help clients understand complex systems, make sense of their data, and improve how they work. I’m hands-on across architecture, backend, frontend, data pipelines, and cloud delivery.",
+    "projects": [
+      "AI Insights Platform. Build generative AI workflows that connect enterprise data and operational tools to interactive applications. Work across Python services, data pipelines, and React interfaces, with Temporal for recoverable background tasks and MCP integrations for tool access.",
+      "Data Modernization Workbench. Build workflows that help teams investigate source systems, review data mappings, and check migration results. Use LangGraph for orchestration and human review, with data validation checks that turn discrepancies into evidence reviewers can inspect.",
+      "LLM evaluation and observability. Evaluate answers against reference facts and regression cases, combining deterministic checks with model-based assessments. Trace agent activity and model calls to investigate failures, understand behavior, and keep answers grounded in verifiable data.",
+      "Engineering and client delivery. Set technical direction, write and review code, and work through delivery blockers with the team. Support containerized deployments, enterprise authentication, and continuous integration and delivery (CI/CD) checks for client environments."
+    ],
+    "tech": [
+      "AG-UI",
+      "Azure OpenAI",
+      "Cloud Build",
+      "CopilotKit",
+      "DeepEval",
+      "Docker",
+      "Entra ID",
+      "FastAPI",
+      "Gemini / Vertex AI",
+      "GitHub Actions",
+      "GKE",
+      "Google ADK",
+      "Helm",
+      "Langfuse",
+      "LangGraph",
+      "LiteLLM",
+      "MongoDB Atlas",
+      "Next.js",
+      "Okta / OIDC",
+      "OpenTelemetry",
+      "Parquet",
+      "PostgreSQL",
+      "PyArrow",
+      "Pydantic",
+      "Redis",
+      "Temporal"
+    ]
+  },
+  {
+    "year": "Jul 2024 — Jan 2026",
+    "role": "AI Engineer | AI / Data",
+    "org": "IBM · Remote",
+    "desc": "Worked directly with clients through discovery workshops, technical enablement, hackathons, prototypes, and pilots to turn AI ideas into working software.",
+    "projects": [
+      "Maricopa County | Production. Built Marco for employee policies and benefits, Mari for public services, and an IT support assistant. Connected retrieval-augmented generation (RAG) with Milvus and a ServiceNow MCP integration for knowledge retrieval and ticket workflows.",
+      "Five9 | Proof of concept. Built event-driven workflows to detect dropped customer conversations and alert live agents for follow-up, connecting conversation analysis with contact-center and CRM tools."
+    ],
+    "tech": [
+      "Five9 ESS",
+      "Granite",
+      "Langflow",
+      "Llama",
+      "MCP",
+      "Milvus",
+      "Next.js",
+      "OpenAPI",
+      "Salesforce",
+      "Watson Orchestrate",
+      "watsonx.ai"
+    ]
+  },
+  {
+    "year": "Dec 2020 — Jul 2024",
+    "role": "Senior Developer | Cloud Expert Labs",
+    "org": "IBM · San Francisco",
+    "desc": "I built client applications for healthcare and retail and helped engineering teams prepare their systems for failures.",
+    "projects": [
+      "Clinical-trial case review. Improved the software healthcare professionals used to review drug-trial cases. Worked across the React/Next.js interface, typed tRPC APIs, and Prisma-backed data access through to OpenShift deployment.",
+      "Cemex | Resilience engineering. Advised engineers in Mexico on planning controlled failure scenarios, assessing system behavior, and identifying recovery improvements. Helped translate chaos-engineering practices into practical reliability testing.",
+      "Coppel | Retail performance dashboard. Built an internal KPI dashboard for a Mexican retailer, connecting a React interface to Node.js and Express services. Worked across application delivery and infrastructure using Kubernetes and Terraform.",
+      "Personal data API | Blockchain prototype. Built a NestJS and TypeScript API prototype connecting personal-data storage with IBM Blockchain. Created working endpoints for the startup to explore the proposed service and its integration."
+    ],
+    "tech": [
+      "Express",
+      "IBM Blockchain",
+      "IBM Decision Manager",
+      "Kubernetes",
+      "NestJS",
+      "Next.js",
+      "Node.js",
+      "OpenShift",
+      "PostgreSQL",
+      "Prisma",
+      "React",
+      "React Query",
+      "Redis",
+      "Terraform",
+      "tRPC",
+      "TypeScript"
+    ]
+  },
+  {
+    "year": "May 2015 — Dec 2020",
+    "role": "Software Developer (junior to senior) | Cloud Garage",
+    "org": "IBM · San Francisco",
+    "desc": "I grew from junior to senior developer through client projects, design workshops, and hands-on delivery. I also helped establish Garage consulting teams in Dubai and São Paulo.",
+    "projects": [
+      "East Carolina University Dental School. Led design workshops and helped move an on-premises application to cloud microservices, making individual services deployable and maintainable on Kubernetes.",
+      "Hertz. Reworked corporate discount software as cloud services and used test-driven development to check behavior as the implementation changed.",
+      "Dubai & São Paulo. Helped establish IBM Garage consulting practices, bringing design workshops and development practices to new delivery teams.",
+      "Fashion image recognition. Led development of a tool for a São Paulo startup that identified clothing in photos and recommended similar items to buy.",
+      "Supply-chain tracking. Built a live dashboard that turned data from connected devices into a view of supply-chain activity.",
+      "Anthem. Built an HR chatbot that helped employees find answers to common questions through conversation."
+    ],
+    "tech": [
+      "Cloud Foundry",
+      "Cloudant",
+      "Docker",
+      "Express",
+      "IBM Cloud",
+      "IBM Watson image recognition",
+      "Kubernetes",
+      "MQTT",
+      "Node.js",
+      "PostgreSQL",
+      "React",
+      "Redux",
+      "Socket.io",
+      "Watson Conversation"
+    ]
+  },
+  {
+    "year": "Sep 2011 — 2014",
+    "role": "SAP Master Data Analyst",
+    "org": "Leprino Foods · Denver",
+    "desc": "Supported SAP master data across three manufacturing plants, validated migrations, resolved production issues, and coordinated ERP reporting across business and technical teams.",
+    "projects": [],
+    "tech": [
+      "sap",
+      "data quality",
+      "erp reporting"
+    ]
+  },
+  {
+    "year": "Aug 2010 — Aug 2011",
+    "role": "Portfolio Accountant",
+    "org": "ALPS, A DST Company · Denver",
+    "desc": "Reconciled cash and investment holdings, including equities, bonds, swaps, options, foreign exchange, mortgages, financing, and futures.",
+    "projects": [],
+    "tech": []
+  },
+  {
+    "year": "May 2008 — Sep 2010",
+    "role": "Risk Management Analyst (Internship)",
+    "org": "Xcel Energy · Denver",
+    "desc": "Helped migrate energy trading and risk measurement from SunGard to SAS Book Runner.",
+    "projects": [],
+    "tech": []
+  }
+]

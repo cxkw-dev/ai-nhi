@@ -14,6 +14,14 @@
   --sans: 'DM Sans', sans-serif;
 }
 
+.skills-section { margin-top: 70px; padding-top: 24px; border-top: 1px solid rgba(241,237,223,.18); }
+#skills-heading { scroll-margin-top: 80px; }
+.skills-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 40px; margin-top: 32px; }
+.skills-grid h4 { font-size: 14px; font-weight: 500; color: var(--lime); margin-bottom: 10px; }
+.skills-grid p { font-size: 13px; line-height: 1.8; color: rgba(241,237,223,.72); }
+@media (max-width: 900px) { .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .skills-grid { grid-template-columns: 1fr; gap: 24px; } }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { position: relative; scroll-behavior: smooth; background: var(--cream); }
 body {
@@ -343,7 +351,7 @@ img { display: block; }
   [data-exp='header'] { grid-template-columns: 72px 1fr !important; gap: 12px !important; }
   [data-exp='header'] > :last-child { grid-column: 2; }
   [data-exp='body'] { margin-left: 84px !important; }
-  [data-exp='projects'] { display: none !important; }
+  [data-exp='projects'] { grid-template-columns: 1fr !important; }
   [data-exp='education'] { grid-template-columns: 1fr !important; }
   [data-section='travel'] { padding-top: 74px !important; }
   [data-travel='intro'] { grid-template-columns: 1fr !important; gap: 24px !important; }
