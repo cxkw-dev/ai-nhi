@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 const DARK_SECTIONS = new Set(['parallax-break', 'experience', 'contact']);
 const NAV_ITEMS = [
   { id: 'about', label: 'about' },
+  { id: 'projects', label: 'projects' },
   { id: 'experience', label: 'work' },
   { id: 'travel', label: 'travel' },
   { id: 'contact', label: 'contact' },

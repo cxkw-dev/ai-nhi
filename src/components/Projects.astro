@@ -1,0 +1,95 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const screenshots = [
+  {
+    file: 'terminal.png',
+    width: 1992,
+    height: 1864,
+    title: 'In the terminal',
+    description: 'Timed sessions, AI usage, Docker status, and a little night sky.',
+    alt: 'Insomnia terminal dashboard showing a session timer and AI usage meters against a starfield.',
+  },
+  {
+    file: 'menubar.png',
+    width: 940,
+    height: 1736,
+    title: 'In the menu bar',
+    description: 'A display-awake switch, account limits, and custom dashboard cards.',
+    alt: 'Insomnia macOS menu-bar app with Enterprise and Personal AI account meters and service status.',
+  },
+];
+---
+
+<section id="projects" data-section="projects" aria-labelledby="insomnia-title">
+  <div class="project-section-label">
+    <span class="eyebrow">Built after hours</span>
+    <span class="section-index">04</span>
+  </div>
+
+  <div class="project-intro">
+    <div>
+      <p class="project-kicker">Latest side project</p>
+      <h2 id="insomnia-title">Insomnia</h2>
+      <p class="project-stack">Rust / Ratatui / Swift / IOKit</p>
+    </div>
+    <div class="project-copy">
+      <p>My alternative to caffeinate: a night-sky terminal app and a native macOS menu-bar companion. Keep the Mac awake while keeping an eye on AI usage, running containers, and the services that matter.</p>
+      <p class="project-detail">Two apps, one shared config. Add dashboard cards with shell commands, and let the Mac sleep normally again when the session ends.</p>
+      <a class="project-source" href="https://github.com/cxkw-dev/insomnia" target="_blank" rel="noopener noreferrer">Explore Insomnia on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+
+  <div class="project-gallery">
+    {screenshots.map((shot) => (
+      <figure>
+        <a class="project-screenshot" href={`${base}/images/insomnia/${shot.file}`} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size Insomnia screenshot: ${shot.title.toLowerCase()}`}>
+          <img src={`${base}/images/insomnia/${shot.file}`} width={shot.width} height={shot.height} alt={shot.alt} loading="lazy" decoding="async" />
+        </a>
+        <figcaption>
+          <h3>{shot.title}</h3>
+          <p>{shot.description}</p>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="project-image-note">Screenshots use demo data. Open either image for a closer look.</p>
+</section>
+
+<style>
+  section {
+    padding: clamp(76px, 8vw, 130px) var(--page-pad);
+    background: var(--cream-deep);
+    color: var(--forest);
+    scroll-margin-top: 30px;
+  }
+  .project-section-label { display: flex; justify-content: space-between; margin-bottom: clamp(48px, 6vw, 88px); }
+  .project-intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: end; margin-bottom: 56px; }
+  .project-kicker { font-family: var(--serif); font-size: 24px; font-style: italic; margin-bottom: 12px; }
+  h2 { font-family: var(--display); font-size: clamp(60px, 8.7vw, 142px); font-weight: 400; line-height: .95; letter-spacing: -.065em; }
+  .project-stack { font-size: 12px; margin-top: 24px; line-height: 1.6; }
+  .project-copy { max-width: 560px; justify-self: end; }
+  .project-copy > p:first-child { font-family: var(--serif); font-size: clamp(25px, 2.4vw, 38px); line-height: 1.16; }
+  .project-detail { margin-top: 20px; max-width: 50ch; font-size: 14px; line-height: 1.7; }
+  .project-source { display: inline-flex; align-items: center; gap: 24px; padding: 12px 0; margin-top: 20px; font-size: 13px; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .project-source span { font-size: 20px; }
+  .project-gallery { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); max-width: 1380px; margin: 0 auto; align-items: start; }
+  figure { min-width: 0; }
+  .project-screenshot { display: block; border-radius: 14px; }
+  .project-screenshot img { width: 100%; height: auto; }
+  .project-source:focus-visible, .project-screenshot:focus-visible { outline: 3px solid var(--forest); outline-offset: 6px; }
+  figcaption { padding: 16px 4% 0; }
+  figcaption h3 { font-family: var(--serif); font-size: 26px; font-weight: 400; }
+  figcaption p { font-size: 13px; line-height: 1.6; margin-top: 6px; max-width: 48ch; }
+  .project-image-note { font-size: 11px; line-height: 1.5; margin: 32px auto 0; max-width: 1380px; }
+  @media (max-width: 900px) {
+    .project-intro { grid-template-columns: 1fr; gap: 32px; }
+    .project-copy { max-width: 650px; justify-self: start; }
+    .project-gallery { gap: 20px; }
+  }
+  @media (max-width: 600px) {
+    .project-gallery { grid-template-columns: 1fr; gap: 44px; }
+    .project-gallery figure:last-child { width: min(100%, 360px); justify-self: center; }
+    .project-intro { margin-bottom: 32px; }
+    .project-stack { margin-top: 16px; }
+  }
+</style>

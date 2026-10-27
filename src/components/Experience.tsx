@@ -62,7 +62,7 @@ export default function Experience() {
   return (
     <section ref={ref} id="experience" data-section="experience" style={{ padding: 'clamp(90px, 9vw, 150px) var(--page-pad)', position: 'relative', overflow: 'hidden' }}>
       <div data-exp="intro" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, marginBottom: 'clamp(72px, 9vw, 130px)' }}>
-        <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 52 }}><span className="eyebrow">Selected history</span><span className="section-index">04</span></div><motion.h2 style={{ x: headingX, fontFamily: 'var(--display)', fontSize: 'clamp(64px, 9vw, 145px)', lineHeight: .8, letterSpacing: '-.06em', textTransform: 'uppercase' }}>Work,<br /><span style={{ fontFamily: 'var(--serif)', fontWeight: 400, fontStyle: 'italic', color: 'var(--lime)' }}>with</span> intent.</motion.h2></div>
+        <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 52 }}><span className="eyebrow">Selected history</span><span className="section-index">05</span></div><motion.h2 style={{ x: headingX, fontFamily: 'var(--display)', fontSize: 'clamp(64px, 9vw, 145px)', lineHeight: .8, letterSpacing: '-.06em', textTransform: 'uppercase' }}>Work,<br /><span style={{ fontFamily: 'var(--serif)', fontWeight: 400, fontStyle: 'italic', color: 'var(--lime)' }}>with</span> intent.</motion.h2></div>
         <p style={{ alignSelf: 'end', justifySelf: 'end', maxWidth: 470, fontFamily: 'var(--serif)', fontSize: 'clamp(24px, 2.6vw, 42px)', lineHeight: 1.08, color: 'rgba(241,237,223,.78)' }}>My path from finance and data operations to building software, cloud applications, and AI agents.</p>
       </div>
 
