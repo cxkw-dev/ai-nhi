@@ -83,7 +83,7 @@ export default function Experience() {
           </div>
           <div data-exp="body" style={{ marginTop: 18, marginLeft: 187, maxWidth: 760 }}>
             {job.desc && <p style={{ fontSize: 15, lineHeight: 1.7, color: 'rgba(241,237,223,.82)' }}>{job.desc}</p>}
-            {job.projects.length > 0 && <ul data-exp="projects" style={{ marginTop: 18, display: 'grid', gap: 10, paddingLeft: 16, color: 'rgba(241,237,223,.72)' }}>{job.projects.map((project) => <li key={project} style={{ fontSize: 14, lineHeight: 1.65 }}>{project}</li>)}</ul>}
+            {job.projects.length > 0 && <ul data-exp="projects" style={{ marginTop: job.desc ? 18 : 0, display: 'grid', gap: 10, paddingLeft: 16, color: 'rgba(241,237,223,.72)' }}>{job.projects.map((project) => <li key={project} style={{ fontSize: 14, lineHeight: 1.65 }}>{project}</li>)}</ul>}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 20 }}>
               {job.tech.map((tech) => { const entry = techIcons[tech.toLowerCase()]; return <span className="tech-chip" key={tech}>{entry && <entry.icon style={{ fontSize: 11, color: entry.color }} />}{tech}</span>; })}
             </div>

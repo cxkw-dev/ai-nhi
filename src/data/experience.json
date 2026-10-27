@@ -3,7 +3,7 @@
     "year": "Jan 2026 — present",
     "role": "Forward Deployed Engineer (Agents)",
     "org": "Kyndryl · Dallas",
-    "desc": "I build AI agents and modernization tools that help clients understand complex systems, make sense of their data, and improve how they work. I’m hands-on across architecture, backend, frontend, data pipelines, and cloud delivery.",
+    "desc": "",
     "projects": [
       "AI Insights Platform. Build generative AI workflows that connect enterprise data and operational tools to interactive applications. Work across Python services, data pipelines, and React interfaces, with Temporal for recoverable background tasks and MCP integrations for tool access.",
       "Data Modernization Workbench. Build workflows that help teams investigate source systems, review data mappings, and check migration results. Use LangGraph for orchestration and human review, with data validation checks that turn discrepancies into evidence reviewers can inspect.",
@@ -43,7 +43,7 @@
     "year": "Jul 2024 — Jan 2026",
     "role": "AI Engineer | AI / Data",
     "org": "IBM · Remote",
-    "desc": "Worked directly with clients through discovery workshops, technical enablement, hackathons, prototypes, and pilots to turn AI ideas into working software.",
+    "desc": "",
     "projects": [
       "Maricopa County | Production. Built Marco for employee policies and benefits, Mari for public services, and an IT support assistant. Connected retrieval-augmented generation (RAG) with Milvus and a ServiceNow MCP integration for knowledge retrieval and ticket workflows.",
       "Five9 | Proof of concept. Built event-driven workflows to detect dropped customer conversations and alert live agents for follow-up, connecting conversation analysis with contact-center and CRM tools."
@@ -66,7 +66,7 @@
     "year": "Dec 2020 — Jul 2024",
     "role": "Senior Developer | Cloud Expert Labs",
     "org": "IBM · San Francisco",
-    "desc": "I built client applications for healthcare and retail and helped engineering teams prepare their systems for failures.",
+    "desc": "",
     "projects": [
       "Clinical-trial case review. Improved the software healthcare professionals used to review drug-trial cases. Worked across the React/Next.js interface, typed tRPC APIs, and Prisma-backed data access through to OpenShift deployment.",
       "Cemex | Resilience engineering. Advised engineers in Mexico on planning controlled failure scenarios, assessing system behavior, and identifying recovery improvements. Helped translate chaos-engineering practices into practical reliability testing.",
@@ -96,7 +96,7 @@
     "year": "May 2015 — Dec 2020",
     "role": "Software Developer (junior to senior) | Cloud Garage",
     "org": "IBM · San Francisco",
-    "desc": "I grew from junior to senior developer through client projects, design workshops, and hands-on delivery. I also helped establish Garage consulting teams in Dubai and São Paulo.",
+    "desc": "",
     "projects": [
       "East Carolina University Dental School. Led design workshops and helped move an on-premises application to cloud microservices, making individual services deployable and maintainable on Kubernetes.",
       "Hertz. Reworked corporate discount software as cloud services and used test-driven development to check behavior as the implementation changed.",
