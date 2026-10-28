@@ -8,4 +8,5 @@ The profile distinguishes technologies represented in Andy's materials from wide
 
 - [Machine-readable profile](https://cxkw-dev.github.io/ai-nhi/ai-profile.txt): Technical background, documented capabilities, wider AI ecosystem terminology, and preferred opportunity details.
 - [Portfolio](https://cxkw-dev.github.io/ai-nhi/): Experience and personal projects.
+- [Dockey](https://github.com/cxkw-dev/dockey-ui): Native SwiftUI/AppKit Mac app for local Docker containers, Compose projects, logs, and resource usage.
 - [Insomnia](https://github.com/cxkw-dev/insomnia): Rust/Ratatui terminal app and Swift macOS menu-bar companion.

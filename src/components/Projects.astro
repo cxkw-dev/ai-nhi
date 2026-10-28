@@ -1,6 +1,6 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const screenshots = [
+const insomniaScreenshots = [
   {
     file: 'terminal.png',
     width: 1992,
@@ -18,41 +18,86 @@ const screenshots = [
     alt: 'Insomnia macOS menu-bar app with Enterprise and Personal AI account meters and service status.',
   },
 ];
+const projects = [
+  {
+    id: 'dockey',
+    name: 'Dockey',
+    kicker: 'Latest side project',
+    stack: 'Swift / SwiftUI / AppKit / Docker CLI',
+    description: 'A native Mac app I built for everyday Docker work. Group Compose containers, start and stop services, and inspect logs and resource usage in one place.',
+    detail: 'Connect to an existing local Docker context, including Colima, and browse images, volumes, and networks in light or dark mode.',
+    source: 'https://github.com/cxkw-dev/dockey-ui',
+    gallery: 'balanced',
+    screenshots: [
+      {
+        file: 'dark.png',
+        width: 2560,
+        height: 1920,
+        title: 'In the dark',
+        description: 'Compose projects, container controls, and live resource usage in a native Mac window.',
+        alt: 'Dockey in dark appearance showing grouped Compose projects, container status, CPU and memory usage, and start and stop controls.',
+      },
+      {
+        file: 'light.png',
+        width: 2560,
+        height: 1920,
+        title: 'In the light',
+        description: 'The same workspace in light appearance, with search and state filters close by.',
+        alt: 'Dockey in light appearance showing container search, state filters, Compose projects, and standalone containers.',
+      },
+    ],
+  },
+  {
+    id: 'insomnia',
+    name: 'Insomnia',
+    kicker: 'Side project',
+    stack: 'Rust / Ratatui / Swift / IOKit',
+    description: 'My alternative to caffeinate: a night-sky terminal app and a native macOS menu-bar companion. Keep the Mac awake while keeping an eye on AI usage, running containers, and the services that matter.',
+    detail: 'Two apps, one shared config. Add dashboard cards with shell commands, and let the Mac sleep normally again when the session ends.',
+    source: 'https://github.com/cxkw-dev/insomnia',
+    gallery: 'asymmetric',
+    screenshots: insomniaScreenshots,
+  },
+];
 ---
 
-<section id="projects" data-section="projects" aria-labelledby="insomnia-title">
+<section id="projects" data-section="projects" aria-label="Side projects">
   <div class="project-section-label">
     <span class="eyebrow">Built after hours</span>
     <span class="section-index">04</span>
   </div>
 
-  <div class="project-intro">
-    <div>
-      <p class="project-kicker">Latest side project</p>
-      <h2 id="insomnia-title">Insomnia</h2>
-      <p class="project-stack">Rust / Ratatui / Swift / IOKit</p>
-    </div>
-    <div class="project-copy">
-      <p>My alternative to caffeinate: a night-sky terminal app and a native macOS menu-bar companion. Keep the Mac awake while keeping an eye on AI usage, running containers, and the services that matter.</p>
-      <p class="project-detail">Two apps, one shared config. Add dashboard cards with shell commands, and let the Mac sleep normally again when the session ends.</p>
-      <a class="project-source" href="https://github.com/cxkw-dev/insomnia" target="_blank" rel="noopener noreferrer">Explore Insomnia on GitHub <span aria-hidden="true">↗</span></a>
-    </div>
-  </div>
+  {projects.map((project) => (
+    <article class="project" aria-labelledby={`${project.id}-title`}>
+      <div class="project-intro">
+        <div>
+          <p class="project-kicker">{project.kicker}</p>
+          <h2 id={`${project.id}-title`}>{project.name}</h2>
+          <p class="project-stack">{project.stack}</p>
+        </div>
+        <div class="project-copy">
+          <p>{project.description}</p>
+          <p class="project-detail">{project.detail}</p>
+          <a class="project-source" href={project.source} target="_blank" rel="noopener noreferrer">Explore {project.name} on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
 
-  <div class="project-gallery">
-    {screenshots.map((shot) => (
-      <figure>
-        <a class="project-screenshot" href={`${base}/images/insomnia/${shot.file}`} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size Insomnia screenshot: ${shot.title.toLowerCase()}`}>
-          <img src={`${base}/images/insomnia/${shot.file}`} width={shot.width} height={shot.height} alt={shot.alt} loading="lazy" decoding="async" />
-        </a>
-        <figcaption>
-          <h3>{shot.title}</h3>
-          <p>{shot.description}</p>
-        </figcaption>
-      </figure>
-    ))}
-  </div>
-  <p class="project-image-note">Screenshots use demo data. Open either image for a closer look.</p>
+      <div class={`project-gallery project-gallery--${project.gallery}`}>
+        {project.screenshots.map((shot) => (
+          <figure>
+            <a class="project-screenshot" href={`${base}/images/${project.id}/${shot.file}`} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size ${project.name} screenshot: ${shot.title.toLowerCase()}`}>
+              <img src={`${base}/images/${project.id}/${shot.file}`} width={shot.width} height={shot.height} alt={shot.alt} loading="lazy" decoding="async" />
+            </a>
+            <figcaption>
+              <h3>{shot.title}</h3>
+              <p>{shot.description}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="project-image-note">Screenshots use demo data. Open either image for a closer look.</p>
+    </article>
+  ))}
 </section>
 
 <style>
@@ -63,6 +108,7 @@ const screenshots = [
     scroll-margin-top: 30px;
   }
   .project-section-label { display: flex; justify-content: space-between; margin-bottom: clamp(48px, 6vw, 88px); }
+  .project + .project { margin-top: clamp(72px, 8vw, 130px); padding-top: clamp(64px, 7vw, 110px); border-top: 1px solid var(--line); }
   .project-intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: end; margin-bottom: 56px; }
   .project-kicker { font-family: var(--serif); font-size: 24px; font-style: italic; margin-bottom: 12px; }
   h2 { font-family: var(--display); font-size: clamp(60px, 8.7vw, 142px); font-weight: 400; line-height: .95; letter-spacing: -.065em; }
@@ -73,6 +119,7 @@ const screenshots = [
   .project-source { display: inline-flex; align-items: center; gap: 24px; padding: 12px 0; margin-top: 20px; font-size: 13px; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 6px; }
   .project-source span { font-size: 20px; }
   .project-gallery { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); max-width: 1380px; margin: 0 auto; align-items: start; }
+  .project-gallery--balanced { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   figure { min-width: 0; }
   .project-screenshot { display: block; border-radius: 14px; }
   .project-screenshot img { width: 100%; height: auto; }
@@ -88,7 +135,7 @@ const screenshots = [
   }
   @media (max-width: 600px) {
     .project-gallery { grid-template-columns: 1fr; gap: 44px; }
-    .project-gallery figure:last-child { width: min(100%, 360px); justify-self: center; }
+    .project-gallery--asymmetric figure:last-child { width: min(100%, 360px); justify-self: center; }
     .project-intro { margin-bottom: 32px; }
     .project-stack { margin-top: 16px; }
   }
