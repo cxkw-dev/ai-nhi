@@ -1,0 +1,135 @@
+<section id="projects" class="dd-showcase" data-section="dawn-dusk" aria-labelledby="dd-heading">
+  <div class="dd-intro">
+    <p class="dd-intro-note">A featured project / design system</p>
+    <p class="dd-intro-copy">One visual language.<br />Two ways to see it.</p>
+  </div>
+
+  <div class="dd-stage" id="dd-stage" style="--dd-split: 52%">
+    <div class="dd-face dd-face--dusk" aria-hidden="true">
+      <div class="dd-face-meta"><span>cxkw.dev design system</span><span>02 / dusk</span></div>
+      <div class="dd-orb"></div>
+      <div class="dd-face-main">
+        <p class="dd-face-caption">a warm, quiet design system</p>
+        <p class="dd-wordmark">dawn<span>&amp;dusk</span></p>
+      </div>
+      <div class="dd-specimen">
+        <span class="dd-specimen-kicker">A little interface, in dusk</span>
+        <div class="dd-specimen-row"><span class="dd-specimen-avatar">d&amp;</span><span class="dd-specimen-label">Good evening.<small>Your workspace is ready.</small></span><span class="dd-specimen-dot"></span></div>
+        <div class="dd-specimen-actions"><span class="dd-specimen-primary">Open workspace <span aria-hidden="true">↗</span></span><span class="dd-specimen-secondary">Preview</span></div>
+      </div>
+      <div class="dd-face-foot"><span>59 components</span><span>tokens · components · docs · agent skill</span></div>
+    </div>
+
+    <div class="dd-face dd-face--dawn" aria-hidden="true">
+      <div class="dd-face-meta"><span>cxkw.dev design system</span><span>01 / dawn</span></div>
+      <div class="dd-orb"></div>
+      <div class="dd-face-main">
+        <p class="dd-face-caption">a warm, quiet design system</p>
+        <p class="dd-wordmark">dawn<span>&amp;dusk</span></p>
+      </div>
+      <div class="dd-specimen">
+        <span class="dd-specimen-kicker">A little interface, in dawn</span>
+        <div class="dd-specimen-row"><span class="dd-specimen-avatar">d&amp;</span><span class="dd-specimen-label">Good morning.<small>Your workspace is ready.</small></span><span class="dd-specimen-dot"></span></div>
+        <div class="dd-specimen-actions"><span class="dd-specimen-primary">Open workspace <span aria-hidden="true">↗</span></span><span class="dd-specimen-secondary">Preview</span></div>
+      </div>
+      <div class="dd-face-foot"><span>59 components</span><span>tokens · components · docs · agent skill</span></div>
+    </div>
+  </div>
+
+  <div class="dd-controls">
+    <label for="dd-range"><span class="dd-control-sun" aria-hidden="true">☀</span> Move the light <span class="dd-control-moon" aria-hidden="true">◕</span></label>
+    <input id="dd-range" type="range" min="18" max="82" value="52" aria-label="Move the divider between dawn and dusk" />
+    <span class="dd-control-hint">Drag to explore both themes</span>
+  </div>
+
+  <div class="dd-outro">
+    <div>
+      <h2 id="dd-heading">Designed in two lights.<br />Built as one system.</h2>
+      <p>Dawn &amp; Dusk brings warm neutrals, golden-hour colour, and a confident lowercase voice to 59 HTML/CSS components. Shared tokens carry every piece from light to dark. A typed React layer and an agent skill make it practical to build with.</p>
+    </div>
+    <div class="dd-links">
+      <a href="https://cxkw-dev.github.io/dawn-and-dusk/" target="_blank" rel="noopener noreferrer">Explore the design system <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/cxkw-dev/dawn-and-dusk" target="_blank" rel="noopener noreferrer">View source on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const range = document.querySelector<HTMLInputElement>('#dd-range');
+  const stage = document.querySelector<HTMLElement>('#dd-stage');
+  range?.addEventListener('input', () => stage?.style.setProperty('--dd-split', `${range.value}%`));
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+  .dd-showcase { padding: clamp(90px, 10vw, 150px) var(--page-pad) clamp(90px, 10vw, 150px); background: #1c1916; color: #ece7df; scroll-margin-top: 0; }
+  .dd-intro { display: flex; justify-content: space-between; align-items: start; gap: 24px; margin-bottom: 34px; }
+  .dd-intro-note { font-family: 'DM Mono', monospace; font-size: 11px; color: #aaa39a; }
+  .dd-intro-copy { font-family: 'Figtree', sans-serif; font-size: clamp(18px, 2vw, 28px); line-height: 1.25; text-align: right; }
+  .dd-stage { position: relative; height: clamp(570px, 55vw, 780px); overflow: hidden; isolation: isolate; }
+  .dd-face { position: absolute; inset: 0; overflow: hidden; font-family: 'Figtree', sans-serif; }
+  .dd-face--dusk { z-index: 0; background: #1c1916; color: #ece7df; }
+  .dd-face--dawn { z-index: 1; background: #f4efe7; color: #1f1e1c; clip-path: polygon(0 0, calc(var(--dd-split) + 12%) 0, calc(var(--dd-split) - 12%) 100%, 0 100%); }
+  .dd-face-meta, .dd-face-foot { position: absolute; z-index: 3; right: 3.4%; left: 3.4%; display: flex; justify-content: space-between; gap: 16px; font-family: 'DM Mono', monospace; font-size: clamp(9px, .9vw, 12px); letter-spacing: .01em; }
+  .dd-face-meta { top: 28px; }
+  .dd-face-foot { bottom: 25px; }
+  .dd-face--dusk .dd-face-meta, .dd-face--dusk .dd-face-foot { color: #b8aea3; }
+  .dd-face--dawn .dd-face-meta, .dd-face--dawn .dd-face-foot { color: #6c655f; }
+  .dd-orb { position: absolute; width: clamp(340px, 44vw, 680px); aspect-ratio: 1; border-radius: 50%; right: -6%; bottom: -40%; background: radial-gradient(circle at 40% 30%, #e8bd6c 0, #d58064 55%, #9c4f5f 100%); }
+  .dd-face--dawn .dd-orb { background: radial-gradient(circle at 40% 30%, #e0b04f 0, #e48f63 65%, #c8694a 100%); }
+  .dd-face-main { position: absolute; z-index: 2; left: 3.4%; top: 16%; }
+  .dd-face-caption { margin-bottom: 12px; font-size: clamp(14px, 1.5vw, 22px); }
+  .dd-wordmark { font-family: 'Outfit', sans-serif; font-size: clamp(115px, 17.8vw, 300px); font-weight: 800; letter-spacing: -.09em; line-height: .69; }
+  .dd-wordmark span { display: block; margin-left: -.045em; }
+  .dd-specimen { position: absolute; z-index: 2; right: 6%; bottom: 13%; width: clamp(250px, 26vw, 370px); padding: clamp(16px, 2vw, 26px); border-radius: 13px; background: #24211e; box-shadow: 0 20px 55px rgba(0,0,0,.12); }
+  .dd-face--dawn .dd-specimen { background: #e8e3db; box-shadow: 0 20px 55px rgba(54,40,22,.12); }
+  .dd-specimen-kicker { font-family: 'DM Mono', monospace; font-size: 10px; opacity: .65; }
+  .dd-specimen-row { display: flex; align-items: center; gap: 12px; padding: 22px 0; }
+  .dd-specimen-avatar { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: #d58064; color: #1f1e1c; font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -.08em; }
+  .dd-face--dawn .dd-specimen-avatar { background: #e0b04f; }
+  .dd-specimen-label { flex: 1; font-size: 15px; font-weight: 700; line-height: 1.3; }
+  .dd-specimen-label small { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; opacity: .7; }
+  .dd-specimen-dot { width: 8px; height: 8px; border-radius: 50%; background: #a6b995; }
+  .dd-specimen-actions { display: flex; gap: 8px; font-size: 11px; font-weight: 700; }
+  .dd-specimen-actions span { padding: 10px 12px; border-radius: 7px; white-space: nowrap; }
+  .dd-specimen-primary { background: #d58064; color: #1f1e1c; }
+  .dd-face--dawn .dd-specimen-primary { background: #c8694a; color: #fff; }
+  .dd-specimen-secondary { background: rgba(255,255,255,.08); }
+  .dd-face--dawn .dd-specimen-secondary { background: rgba(31,30,28,.08); }
+  .dd-controls { display: grid; grid-template-columns: auto minmax(120px, 270px) 1fr; align-items: center; gap: 22px; margin-top: 24px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .dd-controls label { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .dd-control-sun { color: #e8bd6c; font-size: 18px; }
+  .dd-control-moon { color: #b56e7b; font-size: 17px; }
+  .dd-controls input { width: 100%; accent-color: #e8bd6c; cursor: pointer; }
+  .dd-control-hint { justify-self: end; color: #aaa39a; }
+  .dd-outro { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(40px, 9vw, 160px); margin-top: clamp(90px, 11vw, 150px); }
+  .dd-outro h2 { font-family: 'Outfit', sans-serif; font-size: clamp(48px, 6.3vw, 108px); font-weight: 800; letter-spacing: -.07em; line-height: .93; }
+  .dd-outro p { max-width: 60ch; margin-top: 34px; color: #bbb3aa; font-family: 'Figtree', sans-serif; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.7; }
+  .dd-links { display: flex; flex-direction: column; gap: 12px; min-width: 260px; padding-bottom: 4px; }
+  .dd-links a { display: flex; justify-content: space-between; gap: 30px; padding: 17px 0; border-top: 1px solid #635951; font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .dd-links a:hover { color: #e8bd6c; }
+  .dd-links a:focus-visible, .dd-controls input:focus-visible { outline: 2px solid #e8bd6c; outline-offset: 5px; }
+  @media (max-width: 900px) {
+    .dd-stage { height: 660px; }
+    .dd-wordmark { font-size: clamp(116px, 20vw, 200px); }
+    .dd-orb { bottom: -24%; }
+    .dd-outro { grid-template-columns: 1fr; }
+    .dd-links { max-width: 440px; }
+  }
+  @media (max-width: 600px) {
+    .dd-showcase { padding-top: 90px; }
+    .dd-intro { margin-bottom: 25px; }
+    .dd-intro-copy { font-size: 17px; }
+    .dd-stage { height: 610px; }
+    .dd-face-meta, .dd-face-foot { left: 5%; right: 5%; }
+    .dd-face-foot span:last-child { display: none; }
+    .dd-face-main { top: 19%; left: 5%; }
+    .dd-wordmark { font-size: clamp(93px, 23vw, 145px); }
+    .dd-face-caption { max-width: 18ch; }
+    .dd-orb { width: 430px; right: -45%; bottom: -25%; }
+    .dd-specimen { right: 5%; bottom: 11%; width: min(80%, 300px); }
+    .dd-controls { grid-template-columns: 1fr; gap: 10px; }
+    .dd-control-hint { display: none; }
+    .dd-outro { margin-top: 85px; }
+  }
+</style>

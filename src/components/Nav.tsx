@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const DARK_SECTIONS = new Set(['parallax-break', 'experience', 'contact']);
+const DARK_SECTIONS = new Set(['parallax-break', 'dawn-dusk', 'experience', 'contact']);
 const NAV_ITEMS = [
   { id: 'about', label: 'about' },
   { id: 'projects', label: 'projects' },
